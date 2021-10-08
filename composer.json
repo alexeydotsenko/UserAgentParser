@@ -94,6 +94,7 @@
         "endorphin-studio/browser-detector": "Needed to use Provider\\Endorphin",
         "handsetdetection/php-apikit": "Needed to use Provider\\HandsetDetection",
         "jenssegers/agent": "Needed to use Provider\\JenssegersAgent",
+        "matomo/device-detector": "Needed to use Provider\\MatomoDeviceDetector",
         "piwik/device-detector": "Needed to use Provider\\PiwikDeviceDetector",
         "sinergi/browser-detector": "Needed to use Provider\\SinergiBrowserDetector",
         "ua-parser/uap-php": "Needed to use Provider\\UAParser",
@@ -106,19 +107,17 @@
     "require-dev": {
         "phpunit/phpunit": "^5.6.8",
         "friendsofphp/php-cs-fixer": "^1.11",
-        
-        "browscap/browscap-php": "^3.0",
         "donatj/phpuseragentparser": "^0.5.0",
         "endorphin-studio/browser-detector": "^3.0",
         "handsetdetection/php-apikit": "^4.1.10",
         "jenssegers/agent": "^2.3",
         "mobiledetect/mobiledetectlib": "^2.7.5",
-        "piwik/device-detector": "^3.6",
         "sinergi/browser-detector": "^6.0",
         "ua-parser/uap-php": "^3.4.3",
         "whichbrowser/parser": "^2.0.10",
         "woothee/woothee": "^1.2",
         "mimmi20/wurfl": "^1.7.1.1",
-        "zsxsoft/php-useragent": ">=1.2,<1.4"
+        "zsxsoft/php-useragent": ">=1.2,<1.4",
+        "matomo/device-detector": "^4.3"
     }
 }
