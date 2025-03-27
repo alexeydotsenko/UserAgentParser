@@ -2,6 +2,7 @@
 
 namespace UserAgentParser\Provider;
 
+use DeviceDetector\ClientHints;
 use DeviceDetector\DeviceDetector;
 use UserAgentParser\Exception\NoResultFoundException;
 use UserAgentParser\Exception\PackageNotLoadedException;
@@ -120,6 +121,7 @@ class MatomoDeviceDetector extends AbstractProvider
         $dd = $this->getParser();
 
         $dd->setUserAgent($userAgent);
+        $dd->setClientHints(ClientHints::factory($headers));
         $dd->parse();
 
         // No result found?
