@@ -125,20 +125,20 @@ class Woothee extends AbstractProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw($resultRaw);
+        $result->providerResultRaw = $resultRaw;
 
         // Bot detection
         if ($this->isBot($resultRaw) === true) {
-            $this->hydrateBot($result->getBot(), $resultRaw);
+            $this->hydrateBot($result->bot, $resultRaw);
 
             return $result;
         }
 
         // hydrate the result
-        $this->hydrateBrowser($result->getBrowser(), $resultRaw);
+        $this->hydrateBrowser($result->browser, $resultRaw);
         // renderingEngine not available
         // operatingSystem filled OS is mixed! Examples: iPod, iPhone, Android...
-        $this->hydrateDevice($result->getDevice(), $resultRaw);
+        $this->hydrateDevice($result->device, $resultRaw);
 
         return $result;
     }
@@ -173,28 +173,28 @@ class Woothee extends AbstractProvider
 
     private function hydrateBot(Model\Bot $bot, array $resultRaw)
     {
-        $bot->setIsBot(true);
+        $bot->isBot = true;
 
         if (isset($resultRaw['name'])) {
-            $bot->setName($this->getRealResult($resultRaw['name'], 'bot', 'name'));
+            $bot->name = $this->getRealResult($resultRaw['name'], 'bot', 'name');
         }
     }
 
     private function hydrateBrowser(Model\Browser $browser, array $resultRaw)
     {
         if (isset($resultRaw['name'])) {
-            $browser->setName($this->getRealResult($resultRaw['name']));
+            $browser->name = $this->getRealResult($resultRaw['name']);
         }
 
         if (isset($resultRaw['version'])) {
-            $browser->getVersion()->setComplete($this->getRealResult($resultRaw['version']));
+            $browser->version->setComplete($this->getRealResult($resultRaw['version']));
         }
     }
 
     private function hydrateDevice(Model\Device $device, array $resultRaw)
     {
         if (isset($resultRaw['category'])) {
-            $device->setType($this->getRealResult($resultRaw['category'], 'device', 'type'));
+            $device->type = $this->getRealResult($resultRaw['category'], 'device', 'type');
         }
     }
 }

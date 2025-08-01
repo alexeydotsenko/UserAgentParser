@@ -10,122 +10,24 @@ namespace UserAgentParser\Model;
  */
 class Device
 {
-    /**
-     * @var string
-     */
-    private $model;
+    public string|null $model = null;
 
-    /**
-     * @var string
-     */
-    private $brand;
+    public string|null $brand = null;
 
-    /**
-     * @var string
-     */
-    private $type;
+    public string|null $type = null;
 
-    /**
-     * @var bool
-     */
-    private $isMobile;
+    public bool|null $isMobile = null;
 
-    /**
-     * @var bool
-     */
-    private $isTouch;
+    public bool|null $isTouch = null;
 
-    /**
-     * @param string $model
-     */
-    public function setModel($model)
-    {
-        $this->model = $model;
-    }
-
-    /**
-     * @return string
-     */
-    public function getModel()
-    {
-        return $this->model;
-    }
-
-    /**
-     * @param string $brand
-     */
-    public function setBrand($brand)
-    {
-        $this->brand = $brand;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBrand()
-    {
-        return $this->brand;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param bool $isMobile
-     */
-    public function setIsMobile($isMobile)
-    {
-        $this->isMobile = $isMobile;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsMobile()
-    {
-        return $this->isMobile;
-    }
-
-    /**
-     * @param bool $isTouch
-     */
-    public function setIsTouch($isTouch)
-    {
-        $this->isTouch = $isTouch;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsTouch()
-    {
-        return $this->isTouch;
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray()
+    public function toArray(): array
     {
         return [
-            'model' => $this->getModel(),
-            'brand' => $this->getBrand(),
-            'type' => $this->getType(),
-            'isMobile' => $this->getIsMobile(),
-            'isTouch' => $this->getIsTouch(),
+            'model' => $this->model,
+            'brand' => $this->brand,
+            'type' => $this->type,
+            'isMobile' => $this->isMobile,
+            'isTouch' => $this->isTouch,
         ];
     }
 }

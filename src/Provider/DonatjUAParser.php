@@ -90,12 +90,12 @@ class DonatjUAParser extends AbstractProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw($resultRaw);
+        $result->providerResultRaw = $resultRaw;
 
         // Bot detection - is currently not possible!
 
         // hydrate the result
-        $this->hydrateBrowser($result->getBrowser(), $resultRaw);
+        $this->hydrateBrowser($result->browser, $resultRaw);
         // renderingEngine not available
         // os is mixed with device informations
         // device is mixed with os
@@ -117,7 +117,7 @@ class DonatjUAParser extends AbstractProvider
 
     private function hydrateBrowser(Model\Browser $browser, array $resultRaw)
     {
-        $browser->setName($this->getRealResult($resultRaw['browser']));
-        $browser->getVersion()->setComplete($this->getRealResult($resultRaw['version']));
+        $browser->name = $this->getRealResult($resultRaw['browser']);
+        $browser->version->setComplete($this->getRealResult($resultRaw['version']));
     }
 }

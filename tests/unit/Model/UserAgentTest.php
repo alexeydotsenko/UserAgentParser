@@ -20,55 +20,55 @@ class UserAgentTest extends PHPUnit_Framework_TestCase
     {
         $ua = new UserAgent();
 
-        $this->assertInstanceOf('UserAgentParser\Model\Browser', $ua->getBrowser());
+        $this->assertInstanceOf('UserAgentParser\Model\Browser', $ua->browser);
 
         $mock = self::createMock('UserAgentParser\Model\Browser');
-        $ua->setBrowser($mock);
-        $this->assertSame($mock, $ua->getBrowser());
+        $ua->browser = $mock;
+        $this->assertSame($mock, $ua->browser);
     }
 
     public function testRenderingEngine()
     {
         $ua = new UserAgent();
 
-        $this->assertInstanceOf('UserAgentParser\Model\RenderingEngine', $ua->getRenderingEngine());
+        $this->assertInstanceOf('UserAgentParser\Model\RenderingEngine', $ua->renderingEngine);
 
         $mock = self::createMock('UserAgentParser\Model\RenderingEngine');
-        $ua->setRenderingEngine($mock);
-        $this->assertSame($mock, $ua->getRenderingEngine());
+        $ua->renderingEngine = $mock;
+        $this->assertSame($mock, $ua->renderingEngine);
     }
 
     public function testOperatingSystem()
     {
         $ua = new UserAgent();
 
-        $this->assertInstanceOf('UserAgentParser\Model\OperatingSystem', $ua->getOperatingSystem());
+        $this->assertInstanceOf('UserAgentParser\Model\OperatingSystem', $ua->operatingSystem);
 
         $mock = self::createMock('UserAgentParser\Model\OperatingSystem');
-        $ua->setOperatingSystem($mock);
-        $this->assertSame($mock, $ua->getOperatingSystem());
+        $ua->operatingSystem = $mock;
+        $this->assertSame($mock, $ua->operatingSystem);
     }
 
     public function testDevice()
     {
         $ua = new UserAgent();
 
-        $this->assertInstanceOf('UserAgentParser\Model\Device', $ua->getDevice());
+        $this->assertInstanceOf('UserAgentParser\Model\Device', $ua->device);
 
         $mock = self::createMock('UserAgentParser\Model\Device');
-        $ua->setDevice($mock);
-        $this->assertSame($mock, $ua->getDevice());
+        $ua->device = $mock;
+        $this->assertSame($mock, $ua->device);
     }
 
     public function testBot()
     {
         $ua = new UserAgent();
 
-        $this->assertInstanceOf('UserAgentParser\Model\Bot', $ua->getBot());
+        $this->assertInstanceOf('UserAgentParser\Model\Bot', $ua->bot);
 
         $mock = self::createMock('UserAgentParser\Model\Bot');
-        $ua->setBot($mock);
-        $this->assertSame($mock, $ua->getBot());
+        $ua->bot = $mock;
+        $this->assertSame($mock, $ua->bot);
     }
 
     public function testIsBot()
@@ -77,10 +77,10 @@ class UserAgentTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($ua->isBot());
 
-        $ua->getBot()->setIsBot(false);
+        $ua->bot = false;
         $this->assertFalse($ua->isBot());
 
-        $ua->getBot()->setIsBot(true);
+        $ua->bot = true;
         $this->assertTrue($ua->isBot());
     }
 
@@ -90,10 +90,10 @@ class UserAgentTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($ua->isMobile());
 
-        $ua->getDevice()->setIsMobile(false);
+        $ua->device = false;
         $this->assertFalse($ua->isMobile());
 
-        $ua->getDevice()->setIsMobile(true);
+        $ua->device = true;
         $this->assertTrue($ua->isMobile());
     }
 
@@ -101,10 +101,10 @@ class UserAgentTest extends PHPUnit_Framework_TestCase
     {
         $ua = new UserAgent();
 
-        $this->assertNull($ua->getProviderResultRaw());
+        $this->assertNull($ua->providerResultRaw);
 
-        $ua->setProviderResultRaw(['test']);
-        $this->assertEquals(['test'], $ua->getProviderResultRaw());
+        $ua->providerResultRaw = ['test'];
+        $this->assertEquals(['test'], $ua->providerResultRaw);
     }
 
     public function testToArray()
@@ -112,19 +112,19 @@ class UserAgentTest extends PHPUnit_Framework_TestCase
         $ua = new UserAgent();
 
         $this->assertEquals([
-            'browser'          => $ua->getBrowser()->toArray(),
-            'renderingEngine'  => $ua->getRenderingEngine()->toArray(),
-            'operatingSystem'  => $ua->getOperatingSystem()->toArray(),
-            'device'           => $ua->getDevice()->toArray(),
-            'bot'              => $ua->getBot()->toArray(),
+            'browser'          => $ua->browser->toArray(),
+            'renderingEngine'  => $ua->renderingEngine->toArray(),
+            'operatingSystem'  => $ua->operatingSystem->toArray(),
+            'device'           => $ua->device->toArray(),
+            'bot'              => $ua->bot->toArray(),
         ], $ua->toArray());
 
         $this->assertEquals([
-            'browser'           => $ua->getBrowser()->toArray(),
-            'renderingEngine'   => $ua->getRenderingEngine()->toArray(),
-            'operatingSystem'   => $ua->getOperatingSystem()->toArray(),
-            'device'            => $ua->getDevice()->toArray(),
-            'bot'               => $ua->getBot()->toArray(),
+            'browser'           => $ua->browser->toArray(),
+            'renderingEngine'   => $ua->renderingEngine->toArray(),
+            'operatingSystem'   => $ua->operatingSystem->toArray(),
+            'device'            => $ua->device->toArray(),
+            'bot'               => $ua->bot->toArray(),
             'providerResultRaw' => null,
         ], $ua->toArray(true));
     }

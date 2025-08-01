@@ -18,53 +18,53 @@ class DeviceTest extends PHPUnit_Framework_TestCase
     {
         $device = new Device();
 
-        $this->assertNull($device->getModel());
+        $this->assertNull($device->model);
 
         $name = 'OnePlus';
-        $device->setModel($name);
-        $this->assertEquals($name, $device->getModel());
+        $device->model = $name;
+        $this->assertEquals($name, $device->model);
     }
 
     public function testBrand()
     {
         $device = new Device();
 
-        $this->assertNull($device->getBrand());
+        $this->assertNull($device->brand);
 
         $name = 'Apple';
-        $device->setBrand($name);
-        $this->assertEquals($name, $device->getBrand());
+        $device->brand = $name;
+        $this->assertEquals($name, $device->brand);
     }
 
     public function testType()
     {
         $device = new Device();
 
-        $this->assertNull($device->getType());
+        $this->assertNull($device->type);
 
         $name = 'mobilephone';
-        $device->setType($name);
-        $this->assertEquals($name, $device->getType());
+        $device->type = $name;
+        $this->assertEquals($name, $device->type);
     }
 
     public function testIsMobile()
     {
         $device = new Device();
 
-        $this->assertNull($device->getIsMobile());
+        $this->assertNull($device->isMobile);
 
-        $device->setIsMobile(true);
-        $this->assertTrue($device->getIsMobile());
+        $device->isMobile = true;
+        $this->assertTrue($device->isMobile);
     }
 
     public function testIsTouch()
     {
         $device = new Device();
 
-        $this->assertNull($device->getIsTouch());
+        $this->assertNull($device->isTouch);
 
-        $device->setIsTouch(true);
-        $this->assertTrue($device->getIsTouch());
+        $device->isTouch = true;
+        $this->assertTrue($device->isTouch);
     }
 
     public function testToArray()
@@ -79,11 +79,11 @@ class DeviceTest extends PHPUnit_Framework_TestCase
             'isTouch'  => null,
         ], $device->toArray());
 
-        $device->setModel('iPad');
-        $device->setBrand('Apple');
-        $device->setType('tablet');
-        $device->setIsMobile(false);
-        $device->setIsTouch(true);
+        $device->model = 'iPad';
+        $device->brand = 'Apple';
+        $device->type = 'tablet';
+        $device->isMobile = false;
+        $device->isTouch = true;
 
         $this->assertEquals([
             'model'    => 'iPad',

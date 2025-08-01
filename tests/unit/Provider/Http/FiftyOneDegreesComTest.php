@@ -238,8 +238,8 @@ class FiftyOneDegreesComTest extends AbstractProviderTestCase implements Require
 
         $result = $provider->parse('A real user agent...');
 
-        $this->assertEquals('FiftyOneDegreesCom', $result->getProviderName());
-        $this->assertNull($result->getProviderVersion());
+        $this->assertEquals('FiftyOneDegreesCom', $result->providerName);
+        $this->assertNull($result->providerVersion);
     }
 
     /**

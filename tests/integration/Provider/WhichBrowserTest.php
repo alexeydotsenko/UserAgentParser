@@ -158,7 +158,7 @@ class WhichBrowserTest extends AbstractProviderTestCase
         /*
          * Test the raw result
          */
-        $rawResult = $result->getProviderResultRaw();
+        $rawResult = $result->providerResultRaw;
         $this->assertEquals([
             'browser'   => [
                 'name'    => 'Googlebot',
@@ -230,7 +230,7 @@ class WhichBrowserTest extends AbstractProviderTestCase
         /*
          * Test the raw result
          */
-        $rawResult = $result->getProviderResultRaw();
+        $rawResult = $result->providerResultRaw;
         $this->assertEquals([
             'browser'   => [
                 'name'    => 'Chrome',

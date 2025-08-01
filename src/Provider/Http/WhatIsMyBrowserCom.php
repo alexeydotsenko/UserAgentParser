@@ -120,20 +120,20 @@ class WhatIsMyBrowserCom extends AbstractHttpProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw($resultRaw);
+        $result->providerResultRaw = $resultRaw;
 
         // Bot detection
         if ($this->isBot($resultRaw) === true) {
-            $this->hydrateBot($result->getBot(), $resultRaw);
+            $this->hydrateBot($result->bot, $resultRaw);
 
             return $result;
         }
 
         // hydrate the result
-        $this->hydrateBrowser($result->getBrowser(), $resultRaw);
-        $this->hydrateRenderingEngine($result->getRenderingEngine(), $resultRaw);
-        $this->hydrateOperatingSystem($result->getOperatingSystem(), $resultRaw);
-        $this->hydrateDevice($result->getDevice(), $resultRaw);
+        $this->hydrateBrowser($result->browser, $resultRaw);
+        $this->hydrateRenderingEngine($result->renderingEngine, $resultRaw);
+        $this->hydrateOperatingSystem($result->operatingSystem, $resultRaw);
+        $this->hydrateDevice($result->device, $resultRaw);
 
         return $result;
     }
@@ -244,62 +244,62 @@ class WhatIsMyBrowserCom extends AbstractHttpProvider
 
     private function hydrateBot(Model\Bot $bot, stdClass $resultRaw)
     {
-        $bot->setIsBot(true);
+        $bot->isBot = true;
 
         if (isset($resultRaw->browser_name)) {
-            $bot->setName($this->getRealResult($resultRaw->browser_name));
+            $bot->name = $this->getRealResult($resultRaw->browser_name);
         }
 
         if (isset($resultRaw->software_sub_type)) {
-            $bot->setType($this->getRealResult($resultRaw->software_sub_type));
+            $bot->type = $this->getRealResult($resultRaw->software_sub_type);
         }
     }
 
     private function hydrateBrowser(Model\Browser $browser, stdClass $resultRaw)
     {
         if (isset($resultRaw->browser_name)) {
-            $browser->setName($this->getRealResult($resultRaw->browser_name, 'browser', 'name'));
+            $browser->name = $this->getRealResult($resultRaw->browser_name, 'browser', 'name');
         }
 
         if (isset($resultRaw->browser_version_full)) {
-            $browser->getVersion()->setComplete($this->getRealResult($resultRaw->browser_version_full));
+            $browser->version->setComplete($this->getRealResult($resultRaw->browser_version_full));
         }
     }
 
     private function hydrateRenderingEngine(Model\RenderingEngine $engine, stdClass $resultRaw)
     {
         if (isset($resultRaw->layout_engine_name)) {
-            $engine->setName($this->getRealResult($resultRaw->layout_engine_name));
+            $engine->name = $this->getRealResult($resultRaw->layout_engine_name);
         }
 
         if (isset($resultRaw->layout_engine_version)) {
-            $engine->getVersion()->setComplete($this->getRealResult($resultRaw->layout_engine_version));
+            $engine->version->setComplete($this->getRealResult($resultRaw->layout_engine_version));
         }
     }
 
     private function hydrateOperatingSystem(Model\OperatingSystem $os, stdClass $resultRaw)
     {
         if (isset($resultRaw->operating_system_name)) {
-            $os->setName($this->getRealResult($resultRaw->operating_system_name, 'operatingSystem', 'name'));
+            $os->name = $this->getRealResult($resultRaw->operating_system_name, 'operatingSystem', 'name');
         }
 
         if (isset($resultRaw->operating_system_version_full)) {
-            $os->getVersion()->setComplete($this->getRealResult($resultRaw->operating_system_version_full));
+            $os->version->setComplete($this->getRealResult($resultRaw->operating_system_version_full));
         }
     }
 
     private function hydrateDevice(Model\Device $device, stdClass $resultRaw)
     {
         if (isset($resultRaw->operating_platform)) {
-            $device->setModel($this->getRealResult($resultRaw->operating_platform, 'device', 'model'));
+            $device->model = $this->getRealResult($resultRaw->operating_platform, 'device', 'model');
         }
 
         if (isset($resultRaw->operating_platform_vendor_name)) {
-            $device->setBrand($this->getRealResult($resultRaw->operating_platform_vendor_name));
+            $device->brand = $this->getRealResult($resultRaw->operating_platform_vendor_name);
         }
 
         if (isset($resultRaw->hardware_type)) {
-            $device->setType($this->getRealResult($resultRaw->hardware_type));
+            $device->type = $this->getRealResult($resultRaw->hardware_type);
         }
     }
 }

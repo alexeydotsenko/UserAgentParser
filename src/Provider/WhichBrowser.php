@@ -110,35 +110,35 @@ class WhichBrowser extends AbstractProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw($parser->toArray());
+        $result->providerResultRaw = $parser->toArray();
 
         // Bot detection
         if ($parser->getType() === 'bot') {
-            $this->hydrateBot($result->getBot(), $parser->browser);
+            $this->hydrateBot($result->bot, $parser->browser);
 
             return $result;
         }
 
         // hydrate the result
-        $this->hydrateBrowser($result->getBrowser(), $parser->browser);
-        $this->hydrateRenderingEngine($result->getRenderingEngine(), $parser->engine);
-        $this->hydrateOperatingSystem($result->getOperatingSystem(), $parser->os);
-        $this->hydrateDevice($result->getDevice(), $parser->device, $parser);
+        $this->hydrateBrowser($result->browser, $parser->browser);
+        $this->hydrateRenderingEngine($result->renderingEngine, $parser->engine);
+        $this->hydrateOperatingSystem($result->operatingSystem, $parser->os);
+        $this->hydrateDevice($result->device, $parser->device, $parser);
 
         return $result;
     }
 
     private function hydrateBot(Model\Bot $bot, \WhichBrowser\Model\Browser $browserRaw)
     {
-        $bot->setIsBot(true);
-        $bot->setName($this->getRealResult($browserRaw->getName()));
+        $bot->isBot = true;
+        $bot->name = $this->getRealResult($browserRaw->getName());
     }
 
     private function hydrateBrowser(Model\Browser $browser, \WhichBrowser\Model\Browser $browserRaw)
     {
         if ($this->isRealResult($browserRaw->getName(), 'browser', 'name') === true) {
-            $browser->setName($browserRaw->getName());
-            $browser->getVersion()->setComplete($this->getRealResult($browserRaw->getVersion()));
+            $browser->name = $browserRaw->getName();
+            $browser->version->setComplete($this->getRealResult($browserRaw->getVersion()));
 
             return;
         }
@@ -148,33 +148,33 @@ class WhichBrowser extends AbstractProvider
             $usingRaw = $browserRaw->using;
 
             if ($this->isRealResult($usingRaw->getName()) === true) {
-                $browser->setName($usingRaw->getName());
+                $browser->name = $usingRaw->getName();
 
-                $browser->getVersion()->setComplete($this->getRealResult($usingRaw->getVersion()));
+                $browser->version->setComplete($this->getRealResult($usingRaw->getVersion()));
             }
         }
     }
 
     private function hydrateRenderingEngine(Model\RenderingEngine $engine, \WhichBrowser\Model\Engine $engineRaw)
     {
-        $engine->setName($this->getRealResult($engineRaw->getName()));
-        $engine->getVersion()->setComplete($this->getRealResult($engineRaw->getVersion()));
+        $engine->name = $this->getRealResult($engineRaw->getName());
+        $engine->version->setComplete($this->getRealResult($engineRaw->getVersion()));
     }
 
     private function hydrateOperatingSystem(Model\OperatingSystem $os, \WhichBrowser\Model\Os $osRaw)
     {
-        $os->setName($this->getRealResult($osRaw->getName()));
-        $os->getVersion()->setComplete($this->getRealResult($osRaw->getVersion()));
+        $os->name = $this->getRealResult($osRaw->getName());
+        $os->version->setComplete($this->getRealResult($osRaw->getVersion()));
     }
 
     private function hydrateDevice(Model\Device $device, \WhichBrowser\Model\Device $deviceRaw, WhichBrowserParser $parser)
     {
-        $device->setModel($this->getRealResult($deviceRaw->getModel()));
-        $device->setBrand($this->getRealResult($deviceRaw->getManufacturer()));
-        $device->setType($this->getRealResult($parser->getType()));
+        $device->model = $this->getRealResult($deviceRaw->getModel());
+        $device->brand = $this->getRealResult($deviceRaw->getManufacturer());
+        $device->type = $this->getRealResult($parser->getType());
 
         if ($parser->isMobile() === true) {
-            $device->setIsMobile(true);
+            $device->isMobile = true;
         }
     }
 }

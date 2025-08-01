@@ -83,7 +83,7 @@ class JenssegersAgentTest extends AbstractProviderTestCase
         /*
          * Test the raw result
          */
-        $rawResult = $result->getProviderResultRaw();
+        $rawResult = $result->providerResultRaw;
         $this->assertEquals([
             'browserName'    => false,
             'browserVersion' => false,

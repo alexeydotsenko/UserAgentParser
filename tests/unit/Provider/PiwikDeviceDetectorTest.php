@@ -181,8 +181,8 @@ class PiwikDeviceDetectorTest extends AbstractProviderTestCase implements Requir
 
         $result = $provider->parse('A real user agent...');
 
-        $this->assertEquals('PiwikDeviceDetector', $result->getProviderName());
-        $this->assertRegExp('/\d{1,}\.\d{1,}/', $result->getProviderVersion());
+        $this->assertEquals('PiwikDeviceDetector', $result->providerName);
+        $this->assertRegExp('/\d{1,}\.\d{1,}/', $result->providerVersion);
     }
 
     /**

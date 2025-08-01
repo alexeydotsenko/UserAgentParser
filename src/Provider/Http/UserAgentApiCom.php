@@ -84,19 +84,19 @@ class UserAgentApiCom extends AbstractHttpProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw($resultRaw);
+        $result->providerResultRaw = $resultRaw;
 
         // Bot detection
         if ($this->isBot($resultRaw) === true) {
-            $this->hydrateBot($result->getBot(), $resultRaw);
+            $this->hydrateBot($result->bot, $resultRaw);
 
             return $result;
         }
 
         // hydrate the result
-        $this->hydrateBrowser($result->getBrowser(), $resultRaw);
-        $this->hydrateRenderingEngine($result->getRenderingEngine(), $resultRaw);
-        $this->hydrateDevice($result->getDevice(), $resultRaw);
+        $this->hydrateBrowser($result->browser, $resultRaw);
+        $this->hydrateRenderingEngine($result->renderingEngine, $resultRaw);
+        $this->hydrateDevice($result->device, $resultRaw);
 
         return $result;
     }
@@ -182,39 +182,39 @@ class UserAgentApiCom extends AbstractHttpProvider
 
     private function hydrateBot(Model\Bot $bot, stdClass $resultRaw)
     {
-        $bot->setIsBot(true);
+        $bot->isBot = true;
 
         if (isset($resultRaw->platform_name)) {
-            $bot->setName($this->getRealResult($resultRaw->platform_name));
+            $bot->name = $this->getRealResult($resultRaw->platform_name);
         }
     }
 
     private function hydrateBrowser(Model\Browser $browser, stdClass $resultRaw)
     {
         if (isset($resultRaw->browser_name)) {
-            $browser->setName($this->getRealResult($resultRaw->browser_name));
+            $browser->name = $this->getRealResult($resultRaw->browser_name);
         }
 
         if (isset($resultRaw->browser_version)) {
-            $browser->getVersion()->setComplete($this->getRealResult($resultRaw->browser_version));
+            $browser->version->setComplete($this->getRealResult($resultRaw->browser_version));
         }
     }
 
     private function hydrateRenderingEngine(Model\RenderingEngine $engine, stdClass $resultRaw)
     {
         if (isset($resultRaw->engine_name)) {
-            $engine->setName($this->getRealResult($resultRaw->engine_name));
+            $engine->name = $this->getRealResult($resultRaw->engine_name);
         }
 
         if (isset($resultRaw->engine_version)) {
-            $engine->getVersion()->setComplete($this->getRealResult($resultRaw->engine_version));
+            $engine->version->setComplete($this->getRealResult($resultRaw->engine_version));
         }
     }
 
     private function hydrateDevice(Model\Device $device, stdClass $resultRaw)
     {
         if (isset($resultRaw->platform_type)) {
-            $device->setType($this->getRealResult($resultRaw->platform_type));
+            $device->type = $this->getRealResult($resultRaw->platform_type);
         }
     }
 }

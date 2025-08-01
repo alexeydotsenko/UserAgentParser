@@ -19,22 +19,22 @@ class OperatingSystemTest extends PHPUnit_Framework_TestCase
     {
         $os = new OperatingSystem();
 
-        $this->assertNull($os->getName());
+        $this->assertNull($os->name);
 
         $name = 'Windows';
-        $os->setName($name);
-        $this->assertEquals($name, $os->getName());
+        $os->name = $name;
+        $this->assertEquals($name, $os->name);
     }
 
     public function testVersion()
     {
         $os = new OperatingSystem();
 
-        $this->assertInstanceOf('UserAgentParser\Model\Version', $os->getVersion());
+        $this->assertInstanceOf('UserAgentParser\Model\Version', $os->version);
 
         $version = new Version();
-        $os->setVersion($version);
-        $this->assertSame($version, $os->getVersion());
+        $os->version = $version;
+        $this->assertSame($version, $os->version);
     }
 
     public function testToArray()
@@ -43,14 +43,14 @@ class OperatingSystemTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals([
             'name'    => null,
-            'version' => $os->getVersion()
+            'version' => $os->version
                 ->toArray(),
         ], $os->toArray());
 
-        $os->setName('Linux');
+        $os->name = 'Linux';
         $this->assertEquals([
             'name'    => 'Linux',
-            'version' => $os->getVersion()
+            'version' => $os->version
                 ->toArray(),
         ], $os->toArray());
     }

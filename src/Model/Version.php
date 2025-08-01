@@ -10,32 +10,67 @@ namespace UserAgentParser\Model;
  */
 class Version
 {
-    /**
-     * @var int
-     */
-    private $major;
+    public int|null $major = null {
+        get {
+            return $this->major;
+        }
+        set {
+            $this->major = $value;
 
-    /**
-     * @var int
-     */
-    private $minor;
+            $this->hydrateComplete();
+        }
+    }
 
-    /**
-     * @var int
-     */
-    private $patch;
+    public int|null $minor = null {
+        get {
+            return $this->minor;
+        }
+        set {
+            $this->minor = $value;
 
-    /**
-     * @var string
-     */
-    private $alias;
+            $this->hydrateComplete();
+        }
+    }
 
-    /**
-     * @var string
-     */
-    private $complete;
+    public int|null $patch = null {
+        get {
+            return $this->patch;
+        }
+        set {
+            $this->patch = $value;
 
-    private static $notAllowedAlias = [
+            $this->hydrateComplete();
+        }
+    }
+
+    public string|null $alias = null{
+        get {
+            return $this->alias;
+        }
+        set {
+            $this->alias = $value;
+
+            $this->hydrateComplete();
+        }
+    }
+
+    protected string|null $complete = null {
+        get {
+            return $this->complete;
+        }
+        set {
+            $left = preg_replace('/[0._]/', '', $value);
+            if ($left === '') {
+                $value = null;
+            }
+
+            $this->hydrateFromComplete($value);
+
+            $this->complete = $value;
+        }
+    }
+
+    private static array $notAllowedAlias = [
         'a',
         'alpha',
         'prealpha',
@@ -47,167 +82,50 @@ class Version
         'rc',
     ];
 
-    /**
-     * @param int $major
-     */
-    public function setMajor($major)
-    {
-        if ($major !== null) {
-            $major = (int) $major;
-        }
-
-        $this->major = $major;
-
-        $this->hydrateComplete();
-    }
-
-    /**
-     * @return int
-     */
-    public function getMajor()
-    {
-        return $this->major;
-    }
-
-    /**
-     * @param int $minor
-     */
-    public function setMinor($minor)
-    {
-        if ($minor !== null) {
-            $minor = (int) $minor;
-        }
-
-        $this->minor = $minor;
-
-        $this->hydrateComplete();
-    }
-
-    /**
-     * @return int
-     */
-    public function getMinor()
-    {
-        return $this->minor;
-    }
-
-    /**
-     * @param int $patch
-     */
-    public function setPatch($patch)
-    {
-        if ($patch !== null) {
-            $patch = (int) $patch;
-        }
-
-        $this->patch = $patch;
-
-        $this->hydrateComplete();
-    }
-
-    /**
-     * @return int
-     */
-    public function getPatch()
-    {
-        return $this->patch;
-    }
-
-    /**
-     * @param string $alias
-     */
-    public function setAlias($alias)
-    {
-        $this->alias = $alias;
-
-        $this->hydrateComplete();
-    }
-
-    /**
-     * @return string
-     */
-    public function getAlias()
-    {
-        return $this->alias;
-    }
-
-    /**
-     * Set from the complete version string.
-     *
-     * @param string $complete
-     */
-    public function setComplete($complete)
-    {
-        // check if the version has only 0 -> so no real result
-        // maybe move this out to the Providers itself?
-        $left = preg_replace('/[0._]/', '', $complete);
-        if ($left === '') {
-            $complete = null;
-        }
-
-        $this->hydrateFromComplete($complete);
-
-        $this->complete = $complete;
-    }
-
-    /**
-     * @return string
-     */
-    public function getComplete()
-    {
-        return $this->complete;
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray()
+    public function toArray(): array
     {
         return [
-            'major' => $this->getMajor(),
-            'minor' => $this->getMinor(),
-            'patch' => $this->getPatch(),
+            'major' => $this->major,
+            'minor' => $this->minor,
+            'patch' => $this->patch,
 
-            'alias' => $this->getAlias(),
+            'alias' => $this->alias,
 
-            'complete' => $this->getComplete(),
+            'complete' => $this->complete,
         ];
     }
 
-    /**
-     * @return string
-     */
-    private function hydrateComplete()
+    private function hydrateComplete(): void
     {
-        if ($this->getMajor() === null && $this->getAlias() === null) {
+        if ($this->major === null && $this->alias === null) {
             return;
         }
 
-        $version = $this->getMajor();
+        $version = $this->major;
 
-        if ($this->getMinor() !== null) {
-            $version .= '.' . $this->getMinor();
+        if ($this->minor !== null) {
+            $version .= '.' . $this->minor;
         }
 
-        if ($this->getPatch() !== null) {
-            $version .= '.' . $this->getPatch();
+        if ($this->patch !== null) {
+            $version .= '.' . $this->patch;
         }
 
-        if ($this->getAlias() !== null) {
-            $version = $this->getAlias() . ' - ' . $version;
+        if ($this->alias !== null) {
+            $version = $this->alias . ' - ' . $version;
         }
 
         $this->complete = $version;
     }
 
-    private function hydrateFromComplete($complete)
+    private function hydrateFromComplete(string|null $complete): void
     {
         $parts = $this->getCompleteParts($complete);
 
-        $this->setMajor($parts['major']);
-        $this->setMinor($parts['minor']);
-        $this->setPatch($parts['patch']);
-        $this->setAlias($parts['alias']);
+        $this->major = $parts['major'];
+        $this->minor = $parts['minor'];
+        $this->patch = $parts['patch'];
+        $this->alias = $parts['alias'];
     }
 
     /**
@@ -215,47 +133,48 @@ class Version
      *
      * @return array
      */
-    private function getCompleteParts($complete)
+    private function getCompleteParts(string|null $complete): array
     {
         $versionParts = [
             'major' => null,
             'minor' => null,
             'patch' => null,
-
             'alias' => null,
         ];
 
-        // only digits
-        preg_match('/\\d+(?:[._]*\\d*)*/', $complete, $result);
-        if (\count($result) > 0) {
-            $parts = preg_split('/[._]/', $result[0]);
+        if ($complete !== null) {
+            // only digits
+            preg_match('/\\d+(?:[._]*\\d*)*/', $complete, $result);
+            if (\count($result) > 0) {
+                $parts = preg_split('/[._]/', $result[0]);
 
-            if (isset($parts[0]) && $parts[0] != '') {
-                $versionParts['major'] = (int) $parts[0];
-            }
-            if (isset($parts[1]) && $parts[1] != '') {
-                $versionParts['minor'] = (int) $parts[1];
-            }
-            if (isset($parts[2]) && $parts[2] != '') {
-                $versionParts['patch'] = (int) $parts[2];
-            }
-        }
-
-        // grab alias
-        $result = preg_split('/\\d+(?:[._]*\\d*)*/', $complete);
-        foreach ($result as $row) {
-            $row = trim($row);
-
-            if ($row === '') {
-                continue;
+                if (isset($parts[0]) && $parts[0] != '') {
+                    $versionParts['major'] = (int)$parts[0];
+                }
+                if (isset($parts[1]) && $parts[1] != '') {
+                    $versionParts['minor'] = (int)$parts[1];
+                }
+                if (isset($parts[2]) && $parts[2] != '') {
+                    $versionParts['patch'] = (int)$parts[2];
+                }
             }
 
-            // do not use beta and other things
-            if (\in_array($row, self::$notAllowedAlias)) {
-                continue;
-            }
+            // grab alias
+            $result = preg_split('/\\d+(?:[._]*\\d*)*/', $complete);
+            foreach ($result as $row) {
+                $row = trim($row);
 
-            $versionParts['alias'] = $row;
+                if ($row === '') {
+                    continue;
+                }
+
+                // do not use beta and other things
+                if (\in_array($row, self::$notAllowedAlias)) {
+                    continue;
+                }
+
+                $versionParts['alias'] = $row;
+            }
         }
 
         return $versionParts;

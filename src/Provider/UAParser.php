@@ -148,20 +148,20 @@ class UAParser extends AbstractProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw($resultRaw);
+        $result->providerResultRaw = $resultRaw;
 
         // Bot detection
         if ($this->isBot($resultRaw) === true) {
-            $this->hydrateBot($result->getBot(), $resultRaw);
+            $this->hydrateBot($result->bot, $resultRaw);
 
             return $result;
         }
 
         // hydrate the result
-        $this->hydrateBrowser($result->getBrowser(), $resultRaw->ua);
+        $this->hydrateBrowser($result->browser, $resultRaw->ua);
         // renderingEngine not available
-        $this->hydrateOperatingSystem($result->getOperatingSystem(), $resultRaw->os);
-        $this->hydrateDevice($result->getDevice(), $resultRaw->device);
+        $this->hydrateOperatingSystem($result->operatingSystem, $resultRaw->os);
+        $this->hydrateDevice($result->device, $resultRaw->device);
 
         return $result;
     }
@@ -204,26 +204,26 @@ class UAParser extends AbstractProvider
 
     private function hydrateBot(Model\Bot $bot, \UAParser\Result\Client $resultRaw)
     {
-        $bot->setIsBot(true);
-        $bot->setName($this->getRealResult($resultRaw->ua->family, 'bot', 'name'));
+        $bot->isBot = true;
+        $bot->name = $this->getRealResult($resultRaw->ua->family, 'bot', 'name');
     }
 
     private function hydrateBrowser(Model\Browser $browser, \UAParser\Result\UserAgent $uaRaw)
     {
-        $browser->setName($this->getRealResult($uaRaw->family));
+        $browser->name = $this->getRealResult($uaRaw->family);
 
-        $browser->getVersion()->setMajor($this->getRealResult($uaRaw->major));
-        $browser->getVersion()->setMinor($this->getRealResult($uaRaw->minor));
-        $browser->getVersion()->setPatch($this->getRealResult($uaRaw->patch));
+        $browser->version = $this->getRealResult($uaRaw->major);
+        $browser->version = $this->getRealResult($uaRaw->minor);
+        $browser->version = $this->getRealResult($uaRaw->patch);
     }
 
     private function hydrateOperatingSystem(Model\OperatingSystem $os, \UAParser\Result\OperatingSystem $osRaw)
     {
-        $os->setName($this->getRealResult($osRaw->family));
+        $os->name = $this->getRealResult($osRaw->family);
 
-        $os->getVersion()->setMajor($this->getRealResult($osRaw->major));
-        $os->getVersion()->setMinor($this->getRealResult($osRaw->minor));
-        $os->getVersion()->setPatch($this->getRealResult($osRaw->patch));
+        $os->version = $this->getRealResult($osRaw->major);
+        $os->version = $this->getRealResult($osRaw->minor);
+        $os->version = $this->getRealResult($osRaw->patch);
     }
 
     /**
@@ -231,7 +231,7 @@ class UAParser extends AbstractProvider
      */
     private function hydrateDevice(Model\Device $device, \UAParser\Result\Device $deviceRaw)
     {
-        $device->setModel($this->getRealResult($deviceRaw->model, 'device', 'model'));
-        $device->setBrand($this->getRealResult($deviceRaw->brand, 'device', 'brand'));
+        $device->model = $this->getRealResult($deviceRaw->model, 'device', 'model');
+        $device->brand = $this->getRealResult($deviceRaw->brand, 'device', 'brand');
     }
 }

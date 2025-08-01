@@ -104,7 +104,7 @@ class WootheeTest extends AbstractProviderTestCase
         /*
          * Test the raw result
          */
-        $rawResult = $result->getProviderResultRaw();
+        $rawResult = $result->providerResultRaw;
         $this->assertEquals([
             'name'       => 'misc crawler',
             'category'   => 'crawler',

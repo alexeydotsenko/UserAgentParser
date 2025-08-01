@@ -10,58 +10,20 @@ namespace UserAgentParser\Model;
  */
 class RenderingEngine
 {
-    /**
-     * @var string
-     */
-    private $name;
+    public string|null $name = null;
 
-    /**
-     * @var Version
-     */
-    private $version;
+    public Version $version;
 
     public function __construct()
     {
         $this->version = new Version();
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setVersion(Version $version)
-    {
-        $this->version = $version;
-    }
-
-    /**
-     * @return Version
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray()
+    public function toArray(): array
     {
         return [
-            'name' => $this->getName(),
-            'version' => $this->getVersion()->toArray(),
+            'name' => $this->name,
+            'version' => $this->version->toArray(),
         ];
     }
 }

@@ -253,8 +253,8 @@ class UserAgentApiComTest extends AbstractProviderTestCase implements RequiredPr
 
         $result = $provider->parse('A real user agent...');
 
-        $this->assertEquals('UserAgentApiCom', $result->getProviderName());
-        $this->assertNull($result->getProviderVersion());
+        $this->assertEquals('UserAgentApiCom', $result->providerName);
+        $this->assertNull($result->providerVersion);
     }
 
     /**

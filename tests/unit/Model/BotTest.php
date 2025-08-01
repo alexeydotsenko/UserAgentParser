@@ -18,35 +18,35 @@ class BotTest extends PHPUnit_Framework_TestCase
     {
         $bot = new Bot();
 
-        $this->assertNull($bot->getIsBot());
+        $this->assertNull($bot->isBot);
 
-        $bot->setIsBot(true);
-        $this->assertTrue($bot->getIsBot());
+        $bot->isBot = true;
+        $this->assertTrue($bot->isBot);
 
-        $bot->setIsBot(false);
-        $this->assertFalse($bot->getIsBot());
+        $bot->isBot = false;
+        $this->assertFalse($bot->isBot);
     }
 
     public function testName()
     {
         $bot = new Bot();
 
-        $this->assertNull($bot->getName());
+        $this->assertNull($bot->name);
 
         $name = 'my bot name';
-        $bot->setName($name);
-        $this->assertEquals($name, $bot->getName());
+        $bot->name = $name;
+        $this->assertEquals($name, $bot->name);
     }
 
     public function testType()
     {
         $bot = new Bot();
 
-        $this->assertNull($bot->getType());
+        $this->assertNull($bot->type);
 
         $type = 'crawler';
-        $bot->setType($type);
-        $this->assertEquals($type, $bot->getType());
+        $bot->type = $type;
+        $this->assertEquals($type, $bot->type);
     }
 
     public function testToArray()
@@ -59,9 +59,9 @@ class BotTest extends PHPUnit_Framework_TestCase
             'type'  => null,
         ], $bot->toArray());
 
-        $bot->setIsBot(true);
-        $bot->setName('my bot name2');
-        $bot->setType('backlink');
+        $bot->isBot = true;
+        $bot->name = 'my bot name2';
+        $bot->type = 'backlink';
 
         $this->assertEquals([
             'isBot' => true,

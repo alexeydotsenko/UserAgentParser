@@ -277,8 +277,8 @@ class UdgerComTest extends AbstractProviderTestCase implements RequiredProviderT
 
         $result = $provider->parse('A real user agent...');
 
-        $this->assertEquals('UdgerCom', $result->getProviderName());
-        $this->assertNull($result->getProviderVersion());
+        $this->assertEquals('UdgerCom', $result->providerName);
+        $this->assertNull($result->providerVersion);
     }
 
     /**

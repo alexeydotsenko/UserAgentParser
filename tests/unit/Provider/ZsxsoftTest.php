@@ -212,8 +212,8 @@ class ZsxsoftTest extends AbstractProviderTestCase implements RequiredProviderTe
 
         $result = $provider->parse('A real user agent...');
 
-        $this->assertEquals('Zsxsoft', $result->getProviderName());
-        $this->assertRegExp('/\d{1,}\.\d{1,}/', $result->getProviderVersion());
+        $this->assertEquals('Zsxsoft', $result->providerName);
+        $this->assertRegExp('/\d{1,}\.\d{1,}/', $result->providerVersion);
     }
 
     /**

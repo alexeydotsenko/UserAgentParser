@@ -121,24 +121,24 @@ class Endorphin extends AbstractProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw($resultRaw);
+        $result->providerResultRaw = $resultRaw;
 
         // Bot detection
         if ($this->isRealResult($resultRaw->Robot->getType()) === true) {
-            $this->hydrateBot($result->getBot(), $resultRaw->Robot);
+            $this->hydrateBot($result->bot, $resultRaw->Robot);
 
             return $result;
         }
 
         // hydrate the result
         if ($resultRaw->Browser instanceof EndorphinDetector\Browser) {
-            $this->hydrateBrowser($result->getBrowser(), $resultRaw->Browser);
+            $this->hydrateBrowser($result->browser, $resultRaw->Browser);
         }
         if ($resultRaw->OS instanceof EndorphinDetector\OS) {
-            $this->hydrateOperatingSystem($result->getOperatingSystem(), $resultRaw->OS);
+            $this->hydrateOperatingSystem($result->operatingSystem, $resultRaw->OS);
         }
         if ($resultRaw->Device instanceof EndorphinDetector\Device) {
-            $this->hydrateDevice($result->getDevice(), $resultRaw->Device);
+            $this->hydrateDevice($result->device, $resultRaw->Device);
         }
 
         return $result;
@@ -170,26 +170,26 @@ class Endorphin extends AbstractProvider
 
     private function hydrateBot(Model\Bot $bot, EndorphinDetector\Robot $resultRaw)
     {
-        $bot->setIsBot(true);
-        $bot->setName($this->getRealResult($resultRaw->getName()));
-        $bot->setType($this->getRealResult($resultRaw->getType()));
+        $bot->isBot = true;
+        $bot->name = $this->getRealResult($resultRaw->getName());
+        $bot->type = $this->getRealResult($resultRaw->getType());
     }
 
     private function hydrateBrowser(Model\Browser $browser, EndorphinDetector\Browser $resultRaw)
     {
-        $browser->setName($this->getRealResult($resultRaw->getName()));
-        $browser->getVersion()->setComplete($this->getRealResult($resultRaw->getVersion()));
+        $browser->name = $this->getRealResult($resultRaw->getName());
+        $browser->version->setComplete($this->getRealResult($resultRaw->getVersion()));
     }
 
     private function hydrateOperatingSystem(Model\OperatingSystem $os, EndorphinDetector\OS $resultRaw)
     {
-        $os->setName($this->getRealResult($resultRaw->getName()));
-        $os->getVersion()->setComplete($this->getRealResult($resultRaw->getVersion()));
+        $os->name = $this->getRealResult($resultRaw->getName());
+        $os->version->setComplete($this->getRealResult($resultRaw->getVersion()));
     }
 
     private function hydrateDevice(Model\Device $device, EndorphinDetector\Device $resultRaw)
     {
         // $device->setModel($this->getRealResult($resultRaw->ModelName));
-        $device->setType($this->getRealResult($resultRaw->getType()));
+        $device->type = $this->getRealResult($resultRaw->getType());
     }
 }

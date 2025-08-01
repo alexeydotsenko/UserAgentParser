@@ -86,20 +86,20 @@ class FiftyOneDegreesCom extends AbstractHttpProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw($resultRaw);
+        $result->providerResultRaw = $resultRaw;
 
         // Bot detection
         if (isset($resultRaw->IsCrawler) && $resultRaw->IsCrawler === true) {
-            $this->hydrateBot($result->getBot(), $resultRaw);
+            $this->hydrateBot($result->bot, $resultRaw);
 
             return $result;
         }
 
         // hydrate the result
-        $this->hydrateBrowser($result->getBrowser(), $resultRaw);
-        $this->hydrateRenderingEngine($result->getRenderingEngine(), $resultRaw);
-        $this->hydrateOperatingSystem($result->getOperatingSystem(), $resultRaw);
-        $this->hydrateDevice($result->getDevice(), $resultRaw);
+        $this->hydrateBrowser($result->browser, $resultRaw);
+        $this->hydrateRenderingEngine($result->renderingEngine, $resultRaw);
+        $this->hydrateOperatingSystem($result->operatingSystem, $resultRaw);
+        $this->hydrateDevice($result->device, $resultRaw);
 
         return $result;
     }
@@ -188,51 +188,51 @@ class FiftyOneDegreesCom extends AbstractHttpProvider
 
     private function hydrateBot(Model\Bot $bot, stdClass $resultRaw)
     {
-        $bot->setIsBot(true);
+        $bot->isBot = true;
     }
 
     private function hydrateBrowser(Model\Browser $browser, stdClass $resultRaw)
     {
         if (isset($resultRaw->BrowserName)) {
-            $browser->setName($this->getRealResult($resultRaw->BrowserName));
+            $browser->name = $this->getRealResult($resultRaw->BrowserName);
         }
 
         if (isset($resultRaw->BrowserVersion)) {
-            $browser->getVersion()->setComplete($this->getRealResult($resultRaw->BrowserVersion));
+            $browser->version->setComplete($this->getRealResult($resultRaw->BrowserVersion));
         }
     }
 
     private function hydrateRenderingEngine(Model\RenderingEngine $engine, stdClass $resultRaw)
     {
         if (isset($resultRaw->LayoutEngine)) {
-            $engine->setName($this->getRealResult($resultRaw->LayoutEngine));
+            $engine->name = $this->getRealResult($resultRaw->LayoutEngine);
         }
     }
 
     private function hydrateOperatingSystem(Model\OperatingSystem $os, stdClass $resultRaw)
     {
         if (isset($resultRaw->PlatformName)) {
-            $os->setName($this->getRealResult($resultRaw->PlatformName));
+            $os->name = $this->getRealResult($resultRaw->PlatformName);
         }
 
         if (isset($resultRaw->PlatformVersion)) {
-            $os->getVersion()->setComplete($this->getRealResult($resultRaw->PlatformVersion));
+            $os->version->setComplete($this->getRealResult($resultRaw->PlatformVersion));
         }
     }
 
     private function hydrateDevice(Model\Device $device, stdClass $resultRaw)
     {
         if (isset($resultRaw->HardwareVendor)) {
-            $device->setBrand($this->getRealResult($resultRaw->HardwareVendor));
+            $device->brand = $this->getRealResult($resultRaw->HardwareVendor);
         }
         if (isset($resultRaw->HardwareFamily)) {
-            $device->setModel($this->getRealResult($resultRaw->HardwareFamily));
+            $device->model = $this->getRealResult($resultRaw->HardwareFamily);
         }
         if (isset($resultRaw->DeviceType)) {
-            $device->setType($this->getRealResult($resultRaw->DeviceType));
+            $device->type = $this->getRealResult($resultRaw->DeviceType);
         }
         if (isset($resultRaw->IsMobile)) {
-            $device->setIsMobile($this->getRealResult($resultRaw->IsMobile));
+            $device->isMobile = $this->getRealResult($resultRaw->IsMobile);
         }
     }
 }

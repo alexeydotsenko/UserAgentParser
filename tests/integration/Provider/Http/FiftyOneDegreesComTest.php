@@ -163,7 +163,7 @@ class FiftyOneDegreesComTest extends AbstractHttpProviderTestCase
         /*
          * Test the raw result
          */
-        $rawResult = $result->getProviderResultRaw();
+        $rawResult = $result->providerResultRaw;
 
         $this->assertInstanceOf('stdClass', $rawResult);
         $this->assertCount(138, (array) $rawResult);

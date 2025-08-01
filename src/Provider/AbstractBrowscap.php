@@ -115,20 +115,20 @@ abstract class AbstractBrowscap extends AbstractProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw($resultRaw);
+        $result->providerResultRaw = $resultRaw;
 
         // Bot detection (does only work with full_php_browscap.ini)
         if ($this->isBot($resultRaw) === true) {
-            $this->hydrateBot($result->getBot(), $resultRaw);
+            $this->hydrateBot($result->bot, $resultRaw);
 
             return $result;
         }
 
         // hydrate the result
-        $this->hydrateBrowser($result->getBrowser(), $resultRaw);
-        $this->hydrateRenderingEngine($result->getRenderingEngine(), $resultRaw);
-        $this->hydrateOperatingSystem($result->getOperatingSystem(), $resultRaw);
-        $this->hydrateDevice($result->getDevice(), $resultRaw);
+        $this->hydrateBrowser($result->browser, $resultRaw);
+        $this->hydrateRenderingEngine($result->renderingEngine, $resultRaw);
+        $this->hydrateOperatingSystem($result->operatingSystem, $resultRaw);
+        $this->hydrateDevice($result->device, $resultRaw);
 
         return $result;
     }
@@ -159,49 +159,49 @@ abstract class AbstractBrowscap extends AbstractProvider
 
     private function hydrateBot(Model\Bot $bot, stdClass $resultRaw)
     {
-        $bot->setIsBot(true);
+        $bot->isBot = true;
 
         if (isset($resultRaw->browser)) {
-            $bot->setName($this->getRealResult($resultRaw->browser, 'bot', 'name'));
+            $bot->name = $this->getRealResult($resultRaw->browser, 'bot', 'name');
         }
 
         if (isset($resultRaw->issyndicationreader) && $resultRaw->issyndicationreader === true) {
-            $bot->setType('RSS');
+            $bot->type = 'RSS';
         } elseif (isset($resultRaw->browser_type)) {
-            $bot->setType($this->getRealResult($resultRaw->browser_type));
+            $bot->type = $this->getRealResult($resultRaw->browser_type);
         }
     }
 
     private function hydrateBrowser(Model\Browser $browser, stdClass $resultRaw)
     {
         if (isset($resultRaw->browser)) {
-            $browser->setName($this->getRealResult($resultRaw->browser, 'browser', 'name'));
+            $browser->name = $this->getRealResult($resultRaw->browser, 'browser', 'name');
         }
 
         if (isset($resultRaw->version)) {
-            $browser->getVersion()->setComplete($this->getRealResult($resultRaw->version));
+            $browser->version->setComplete($this->getRealResult($resultRaw->version));
         }
     }
 
     private function hydrateRenderingEngine(Model\RenderingEngine $engine, stdClass $resultRaw)
     {
         if (isset($resultRaw->renderingengine_name)) {
-            $engine->setName($this->getRealResult($resultRaw->renderingengine_name));
+            $engine->name = $this->getRealResult($resultRaw->renderingengine_name);
         }
 
         if (isset($resultRaw->renderingengine_version)) {
-            $engine->getVersion()->setComplete($this->getRealResult($resultRaw->renderingengine_version));
+            $engine->version->setComplete($this->getRealResult($resultRaw->renderingengine_version));
         }
     }
 
     private function hydrateOperatingSystem(Model\OperatingSystem $os, stdClass $resultRaw)
     {
         if (isset($resultRaw->platform)) {
-            $os->setName($this->getRealResult($resultRaw->platform));
+            $os->name = $this->getRealResult($resultRaw->platform);
         }
 
         if (isset($resultRaw->platform_version)) {
-            $os->getVersion()->setComplete($this->getRealResult($resultRaw->platform_version));
+            $os->version->setComplete($this->getRealResult($resultRaw->platform_version));
         }
     }
 
@@ -211,23 +211,23 @@ abstract class AbstractBrowscap extends AbstractProvider
     private function hydrateDevice(Model\Device $device, stdClass $resultRaw)
     {
         if (isset($resultRaw->device_name)) {
-            $device->setModel($this->getRealResult($resultRaw->device_name, 'device', 'model'));
+            $device->model = $this->getRealResult($resultRaw->device_name, 'device', 'model');
         }
 
         if (isset($resultRaw->device_brand_name)) {
-            $device->setBrand($this->getRealResult($resultRaw->device_brand_name));
+            $device->brand = $this->getRealResult($resultRaw->device_brand_name);
         }
 
         if (isset($resultRaw->device_type)) {
-            $device->setType($this->getRealResult($resultRaw->device_type));
+            $device->type = $this->getRealResult($resultRaw->device_type);
         }
 
         if (isset($resultRaw->ismobiledevice) && $this->isRealResult($resultRaw->ismobiledevice) === true && $resultRaw->ismobiledevice === true) {
-            $device->setIsMobile(true);
+            $device->isMobile = true;
         }
 
         if (isset($resultRaw->device_pointing_method) && $resultRaw->device_pointing_method == 'touchscreen') {
-            $device->setIsTouch(true);
+            $device->isTouch = true;
         }
     }
 }

@@ -83,7 +83,7 @@ class ZsxsoftTest extends AbstractProviderTestCase
         /*
          * Test the raw result
          */
-        $rawResult = $result->getProviderResultRaw();
+        $rawResult = $result->providerResultRaw;
         $this->assertEquals([
             'browser' => [
                 'link'    => 'http://www.opera.com/',

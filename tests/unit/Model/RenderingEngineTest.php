@@ -19,22 +19,22 @@ class RenderingEngineTest extends PHPUnit_Framework_TestCase
     {
         $engine = new RenderingEngine();
 
-        $this->assertNull($engine->getName());
+        $this->assertNull($engine->name);
 
         $name = 'Webkit';
-        $engine->setName($name);
-        $this->assertEquals($name, $engine->getName());
+        $engine->name = $name;
+        $this->assertEquals($name, $engine->name);
     }
 
     public function testVersion()
     {
         $engine = new RenderingEngine();
 
-        $this->assertInstanceOf('UserAgentParser\Model\Version', $engine->getVersion());
+        $this->assertInstanceOf('UserAgentParser\Model\Version', $engine->version);
 
         $version = new Version();
-        $engine->setVersion($version);
-        $this->assertSame($version, $engine->getVersion());
+        $engine->version = $version;
+        $this->assertSame($version, $engine->version);
     }
 
     public function testToArray()
@@ -43,14 +43,14 @@ class RenderingEngineTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals([
             'name'    => null,
-            'version' => $engine->getVersion()
+            'version' => $engine->version
                 ->toArray(),
         ], $engine->toArray());
 
-        $engine->setName('Trident');
+        $engine->name = 'Trident';
         $this->assertEquals([
             'name'    => 'Trident',
-            'version' => $engine->getVersion()
+            'version' => $engine->version
                 ->toArray(),
         ], $engine->toArray());
     }

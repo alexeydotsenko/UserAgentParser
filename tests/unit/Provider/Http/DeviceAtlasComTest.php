@@ -228,8 +228,8 @@ class DeviceAtlasComTest extends AbstractProviderTestCase implements RequiredPro
 
         $result = $provider->parse('A real user agent...');
 
-        $this->assertEquals('DeviceAtlasCom', $result->getProviderName());
-        $this->assertNull($result->getProviderVersion());
+        $this->assertEquals('DeviceAtlasCom', $result->providerName);
+        $this->assertNull($result->providerVersion);
     }
 
     /**

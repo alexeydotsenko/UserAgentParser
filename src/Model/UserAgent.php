@@ -10,56 +10,23 @@ namespace UserAgentParser\Model;
  */
 class UserAgent
 {
-    /**
-     * Provider name.
-     *
-     * @var string
-     */
-    private $providerName;
+    public readonly string|null $providerName;
 
-    /**
-     * Provider version.
-     *
-     * @var string
-     */
-    private $providerVersion;
+    public readonly string|null $providerVersion;
 
-    /**
-     * @var Browser
-     */
-    private $browser;
+    public Browser $browser;
 
-    /**
-     * @var RenderingEngine
-     */
-    private $renderingEngine;
+    public RenderingEngine $renderingEngine;
 
-    /**
-     * @var OperatingSystem
-     */
-    private $operatingSystem;
+    public OperatingSystem $operatingSystem;
 
-    /**
-     * @var Device
-     */
-    private $device;
+    public Device $device;
 
-    /**
-     * @var Bot
-     */
-    private $bot;
+    public Bot $bot;
 
-    /**
-     * @var mixed
-     */
-    private $providerResultRaw;
+    public mixed $providerResultRaw;
 
-    /**
-     * @param string     $provider
-     * @param null|mixed $providerName
-     * @param null|mixed $providerVersion
-     */
-    public function __construct($providerName = null, $providerVersion = null)
+    public function __construct(string|null $providerName = null, string|null $providerVersion = null)
     {
         $this->providerName = $providerName;
         $this->providerVersion = $providerVersion;
@@ -71,145 +38,37 @@ class UserAgent
         $this->bot = new Bot();
     }
 
-    /**
-     * @return string
-     */
-    public function getProviderName()
+    public function isBot(): bool
     {
-        return $this->providerName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getProviderVersion()
-    {
-        return $this->providerVersion;
-    }
-
-    public function setBrowser(Browser $browser)
-    {
-        $this->browser = $browser;
-    }
-
-    /**
-     * @return Browser
-     */
-    public function getBrowser()
-    {
-        return $this->browser;
-    }
-
-    public function setRenderingEngine(RenderingEngine $renderingEngine)
-    {
-        $this->renderingEngine = $renderingEngine;
-    }
-
-    /**
-     * @return RenderingEngine
-     */
-    public function getRenderingEngine()
-    {
-        return $this->renderingEngine;
-    }
-
-    public function setOperatingSystem(OperatingSystem $operatingSystem)
-    {
-        $this->operatingSystem = $operatingSystem;
-    }
-
-    /**
-     * @return OperatingSystem
-     */
-    public function getOperatingSystem()
-    {
-        return $this->operatingSystem;
-    }
-
-    public function setDevice(Device $device)
-    {
-        $this->device = $device;
-    }
-
-    /**
-     * @return Device
-     */
-    public function getDevice()
-    {
-        return $this->device;
-    }
-
-    public function setBot(Bot $bot)
-    {
-        $this->bot = $bot;
-    }
-
-    /**
-     * @return Bot
-     */
-    public function getBot()
-    {
-        return $this->bot;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isBot()
-    {
-        if ($this->getBot()->getIsBot() === true) {
+        if ($this->bot === true) {
             return true;
         }
 
         return false;
     }
 
-    /**
-     * @return bool
-     */
-    public function isMobile()
+    public function isMobile(): bool
     {
-        if ($this->getDevice()->getIsMobile() === true) {
+        if ($this->device === true) {
             return true;
         }
 
         return false;
     }
 
-    /**
-     * @param mixed $providerResultRaw
-     */
-    public function setProviderResultRaw($providerResultRaw)
-    {
-        $this->providerResultRaw = $providerResultRaw;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getProviderResultRaw()
-    {
-        return $this->providerResultRaw;
-    }
-
-    /**
-     * @param mixed $includeResultRaw
-     *
-     * @return array
-     */
-    public function toArray($includeResultRaw = false)
+    public function toArray(bool $includeResultRaw = false): array
     {
         $data = [
-            'browser' => $this->getBrowser()->toArray(),
-            'renderingEngine' => $this->getRenderingEngine()->toArray(),
-            'operatingSystem' => $this->getOperatingSystem()->toArray(),
-            'device' => $this->getDevice()->toArray(),
-            'bot' => $this->getBot()->toArray(),
+            'browser' => $this->browser->toArray(),
+            'renderingEngine' => $this->renderingEngine->toArray(),
+            'operatingSystem' => $this->operatingSystem->toArray(),
+            'device' => $this->device->toArray(),
+            'bot' => $this->bot->toArray(),
         ];
 
         // should be only used for debug
-        if ($includeResultRaw === true) {
-            $data['providerResultRaw'] = $this->getProviderResultRaw();
+        if ($includeResultRaw) {
+            $data['providerResultRaw'] = $this->providerResultRaw;
         }
 
         return $data;

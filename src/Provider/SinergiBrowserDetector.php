@@ -165,25 +165,25 @@ class SinergiBrowserDetector extends AbstractProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw([
+        $result->providerResultRaw = [
             'browser' => $browserRaw,
             'operatingSystem' => $osRaw,
             'device' => $deviceRaw,
-        ]);
+        ];
 
         // Bot detection
         if ($browserRaw->isRobot() === true) {
-            $bot = $result->getBot();
-            $bot->setIsBot(true);
+            $bot = $result->bot;
+            $bot->isBot = true;
 
             return $result;
         }
 
         // hydrate the result
-        $this->hydrateBrowser($result->getBrowser(), $browserRaw);
+        $this->hydrateBrowser($result->browser, $browserRaw);
         // renderingEngine not available
-        $this->hydrateOperatingSystem($result->getOperatingSystem(), $osRaw);
-        $this->hydrateDevice($result->getDevice(), $osRaw, $deviceRaw);
+        $this->hydrateOperatingSystem($result->operatingSystem, $osRaw);
+        $this->hydrateDevice($result->device, $osRaw, $deviceRaw);
 
         return $result;
     }
@@ -214,14 +214,14 @@ class SinergiBrowserDetector extends AbstractProvider
 
     private function hydrateBrowser(Model\Browser $browser, BrowserDetector\Browser $browserRaw)
     {
-        $browser->setName($this->getRealResult($browserRaw->getName()));
-        $browser->getVersion()->setComplete($this->getRealResult($browserRaw->getVersion()));
+        $browser->name = $this->getRealResult($browserRaw->getName());
+        $browser->version->setComplete($this->getRealResult($browserRaw->getVersion()));
     }
 
     private function hydrateOperatingSystem(Model\OperatingSystem $os, BrowserDetector\Os $osRaw)
     {
-        $os->setName($this->getRealResult($osRaw->getName()));
-        $os->getVersion()->setComplete($this->getRealResult($osRaw->getVersion()));
+        $os->name = $this->getRealResult($osRaw->getName());
+        $os->version->setComplete($this->getRealResult($osRaw->getVersion()));
     }
 
     /**
@@ -229,10 +229,10 @@ class SinergiBrowserDetector extends AbstractProvider
      */
     private function hydrateDevice(Model\Device $device, BrowserDetector\Os $osRaw, BrowserDetector\Device $deviceRaw)
     {
-        $device->setModel($this->getRealResult($deviceRaw->getName(), 'device', 'model'));
+        $device->model = $this->getRealResult($deviceRaw->getName(), 'device', 'model');
 
         if ($osRaw->isMobile() === true) {
-            $device->setIsMobile(true);
+            $device->isMobile = true;
         }
     }
 }

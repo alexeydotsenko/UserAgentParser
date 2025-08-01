@@ -135,17 +135,17 @@ class Zsxsoft extends AbstractProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw([
+        $result->providerResultRaw = [
             'browser' => $browser,
             'os' => $os,
             'device' => $device,
             'platform' => $platform,
-        ]);
+        ];
 
         // hydrate the result
-        $this->hydrateBrowser($result->getBrowser(), $browser);
-        $this->hydrateOperatingSystem($result->getOperatingSystem(), $os);
-        $this->hydrateDevice($result->getDevice(), $device);
+        $this->hydrateBrowser($result->browser, $browser);
+        $this->hydrateOperatingSystem($result->operatingSystem, $os);
+        $this->hydrateDevice($result->device, $device);
 
         return $result;
     }
@@ -177,33 +177,33 @@ class Zsxsoft extends AbstractProvider
     private function hydrateBrowser(Model\Browser $browser, array $browserRaw)
     {
         if (isset($browserRaw['name'])) {
-            $browser->setName($this->getRealResult($browserRaw['name'], 'browser', 'name'));
+            $browser->name = $this->getRealResult($browserRaw['name'], 'browser', 'name');
         }
 
         if (isset($browserRaw['version'])) {
-            $browser->getVersion()->setComplete($this->getRealResult($browserRaw['version']));
+            $browser->version->setComplete($this->getRealResult($browserRaw['version']));
         }
     }
 
     private function hydrateOperatingSystem(Model\OperatingSystem $os, array $osRaw)
     {
         if (isset($osRaw['name'])) {
-            $os->setName($this->getRealResult($osRaw['name']));
+            $os->name = $this->getRealResult($osRaw['name']);
         }
 
         if (isset($osRaw['version'])) {
-            $os->getVersion()->setComplete($this->getRealResult($osRaw['version']));
+            $os->version->setComplete($this->getRealResult($osRaw['version']));
         }
     }
 
     private function hydrateDevice(Model\Device $device, array $deviceRaw)
     {
         if (isset($deviceRaw['model'])) {
-            $device->setModel($this->getRealResult($deviceRaw['model'], 'device', 'model'));
+            $device->model = $this->getRealResult($deviceRaw['model'], 'device', 'model');
         }
 
         if (isset($deviceRaw['brand'])) {
-            $device->setBrand($this->getRealResult($deviceRaw['brand']));
+            $device->brand = $this->getRealResult($deviceRaw['brand']);
         }
     }
 }

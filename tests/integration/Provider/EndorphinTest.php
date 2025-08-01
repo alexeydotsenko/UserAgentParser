@@ -82,7 +82,7 @@ class EndorphinTest extends AbstractProviderTestCase
         /*
          * Test the raw result
          */
-        $rawResult = $result->getProviderResultRaw();
+        $rawResult = $result->providerResultRaw;
 
         $this->assertInstanceOf('EndorphinStudio\Detector\DetectorResult', $rawResult);
 

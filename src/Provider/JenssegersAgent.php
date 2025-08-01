@@ -140,19 +140,19 @@ class JenssegersAgent extends AbstractProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw($resultCache);
+        $result->providerResultRaw = $resultCache;
 
         // Bot detection
         if ($resultCache['isRobot'] === true) {
-            $this->hydrateBot($result->getBot(), $resultCache);
+            $this->hydrateBot($result->bot, $resultCache);
 
             return $result;
         }
 
         // hydrate the result
-        $this->hydrateBrowser($result->getBrowser(), $resultCache);
-        $this->hydrateOperatingSystem($result->getOperatingSystem(), $resultCache);
-        $this->hydrateDevice($result->getDevice(), $resultCache);
+        $this->hydrateBrowser($result->browser, $resultCache);
+        $this->hydrateOperatingSystem($result->operatingSystem, $resultCache);
+        $this->hydrateDevice($result->device, $resultCache);
 
         return $result;
     }
@@ -175,30 +175,30 @@ class JenssegersAgent extends AbstractProvider
 
     private function hydrateBot(Model\Bot $bot, array $resultRaw)
     {
-        $bot->setIsBot(true);
-        $bot->setName($this->getRealResult($resultRaw['botName']));
+        $bot->isBot = true;
+        $bot->name = $this->getRealResult($resultRaw['botName']);
     }
 
     private function hydrateBrowser(Model\Browser $browser, array $resultRaw)
     {
         if ($this->isRealResult($resultRaw['browserName'], 'browser', 'name') === true) {
-            $browser->setName($resultRaw['browserName']);
-            $browser->getVersion()->setComplete($this->getRealResult($resultRaw['browserVersion']));
+            $browser->name = $resultRaw['browserName'];
+            $browser->version->setComplete($this->getRealResult($resultRaw['browserVersion']));
         }
     }
 
     private function hydrateOperatingSystem(Model\OperatingSystem $os, array $resultRaw)
     {
         if ($this->isRealResult($resultRaw['osName']) === true) {
-            $os->setName($resultRaw['osName']);
-            $os->getVersion()->setComplete($this->getRealResult($resultRaw['osVersion']));
+            $os->name = $resultRaw['osName'];
+            $os->version->setComplete($this->getRealResult($resultRaw['osVersion']));
         }
     }
 
     private function hydrateDevice(Model\Device $device, array $resultRaw)
     {
         if ($resultRaw['isMobile'] === true) {
-            $device->setIsMobile(true);
+            $device->isMobile = true;
         }
     }
 }

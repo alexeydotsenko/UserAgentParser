@@ -131,13 +131,13 @@ class HandsetDetection extends AbstractProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw($resultRaw['hd_specs']);
+        $result->providerResultRaw = $resultRaw['hd_specs'];
 
         // hydrate the result
-        $this->hydrateBrowser($result->getBrowser(), $resultRaw['hd_specs']);
+        $this->hydrateBrowser($result->browser, $resultRaw['hd_specs']);
         // renderingEngine not available
-        $this->hydrateOperatingSystem($result->getOperatingSystem(), $resultRaw['hd_specs']);
-        $this->hydrateDevice($result->getDevice(), $resultRaw['hd_specs']);
+        $this->hydrateOperatingSystem($result->operatingSystem, $resultRaw['hd_specs']);
+        $this->hydrateDevice($result->device, $resultRaw['hd_specs']);
 
         return $result;
     }
@@ -165,20 +165,20 @@ class HandsetDetection extends AbstractProvider
     private function hydrateBrowser(Model\Browser $browser, array $resultRaw)
     {
         if (isset($resultRaw['general_browser'])) {
-            $browser->setName($this->getRealResult($resultRaw['general_browser']));
+            $browser->name = $this->getRealResult($resultRaw['general_browser']);
         }
         if (isset($resultRaw['general_browser_version'])) {
-            $browser->getVersion()->setComplete($this->getRealResult($resultRaw['general_browser_version']));
+            $browser->version->setComplete($this->getRealResult($resultRaw['general_browser_version']));
         }
     }
 
     private function hydrateOperatingSystem(Model\OperatingSystem $os, array $resultRaw)
     {
         if (isset($resultRaw['general_platform'])) {
-            $os->setName($this->getRealResult($resultRaw['general_platform']));
+            $os->name = $this->getRealResult($resultRaw['general_platform']);
         }
         if (isset($resultRaw['general_platform_version'])) {
-            $os->getVersion()->setComplete($this->getRealResult($resultRaw['general_platform_version']));
+            $os->version->setComplete($this->getRealResult($resultRaw['general_platform_version']));
         }
     }
 
@@ -188,8 +188,8 @@ class HandsetDetection extends AbstractProvider
     private function hydrateDevice(Model\Device $device, array $resultRaw)
     {
         if (isset($resultRaw['general_model']) && $this->isRealResult($resultRaw['general_model'], 'device', 'model') && isset($resultRaw['general_vendor']) && $this->isRealResult($resultRaw['general_vendor'], 'device', 'brand')) {
-            $device->setModel($this->getRealResult($resultRaw['general_model'], 'device', 'model'));
-            $device->setBrand($this->getRealResult($resultRaw['general_vendor'], 'device', 'brand'));
+            $device->model = $this->getRealResult($resultRaw['general_model'], 'device', 'model');
+            $device->brand = $this->getRealResult($resultRaw['general_vendor'], 'device', 'brand');
         }
     }
 }

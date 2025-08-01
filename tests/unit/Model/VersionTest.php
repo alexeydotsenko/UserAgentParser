@@ -18,22 +18,22 @@ class VersionTest extends PHPUnit_Framework_TestCase
     {
         $version = new Version();
 
-        $this->assertNull($version->getMajor());
-        $this->assertNull($version->getMinor());
-        $this->assertNull($version->getPatch());
-        $this->assertNull($version->getAlias());
+        $this->assertNull($version->major);
+        $this->assertNull($version->minor);
+        $this->assertNull($version->patch);
+        $this->assertNull($version->alias);
 
-        $version->setMajor(2);
-        $this->assertEquals(2, $version->getMajor());
+        $version->major = 2;
+        $this->assertEquals(2, $version->major);
 
-        $version->setMinor(3);
-        $this->assertEquals(3, $version->getMinor());
+        $version->minor = 3;
+        $this->assertEquals(3, $version->minor);
 
-        $version->setPatch(4);
-        $this->assertEquals(4, $version->getPatch());
+        $version->patch = 4;
+        $this->assertEquals(4, $version->patch);
 
-        $version->setAlias('Windows XP');
-        $this->assertEquals('Windows XP', $version->getAlias());
+        $version->alias = 'Windows XP';
+        $this->assertEquals('Windows XP', $version->alias);
     }
 
     public function testCompleteSimple()
@@ -48,17 +48,17 @@ class VersionTest extends PHPUnit_Framework_TestCase
 
         $version->setComplete('2.0.1');
         $this->assertEquals('2.0.1', $version->getComplete());
-        $this->assertEquals(2, $version->getMajor());
-        $this->assertEquals(0, $version->getMinor());
-        $this->assertEquals(1, $version->getPatch());
+        $this->assertEquals(2, $version->major);
+        $this->assertEquals(0, $version->minor);
+        $this->assertEquals(1, $version->patch);
 
         $version->setComplete('2.0');
         $this->assertEquals('2.0', $version->getComplete());
-        $this->assertEquals(2, $version->getMajor());
-        $this->assertEquals(0, $version->getMinor());
-        $this->assertEquals(null, $version->getPatch());
+        $this->assertEquals(2, $version->major);
+        $this->assertEquals(0, $version->minor);
+        $this->assertEquals(null, $version->patch);
 
-        $version->setMajor(3);
+        $version->major = 3;
         $this->assertEquals('3.0', $version->getComplete());
     }
 
@@ -86,10 +86,10 @@ class VersionTest extends PHPUnit_Framework_TestCase
         $version->setComplete('Windows XP');
 
         $this->assertEquals('Windows XP', $version->getComplete());
-        $this->assertNull($version->getMajor());
-        $this->assertNull($version->getMinor());
-        $this->assertNull($version->getPatch());
-        $this->assertEquals('Windows XP', $version->getAlias());
+        $this->assertNull($version->major);
+        $this->assertNull($version->minor);
+        $this->assertNull($version->patch);
+        $this->assertEquals('Windows XP', $version->alias);
     }
 
     public function testCompleteVersionAndAlias()
@@ -99,10 +99,10 @@ class VersionTest extends PHPUnit_Framework_TestCase
         $version->setComplete('Windows XP 6.3');
 
         $this->assertEquals('Windows XP 6.3', $version->getComplete());
-        $this->assertEquals(6, $version->getMajor());
-        $this->assertEquals(3, $version->getMinor());
-        $this->assertNull($version->getPatch());
-        $this->assertEquals('Windows XP', $version->getAlias());
+        $this->assertEquals(6, $version->major);
+        $this->assertEquals(3, $version->minor);
+        $this->assertNull($version->patch);
+        $this->assertEquals('Windows XP', $version->alias);
     }
 
     public function testCompleteWithNotAllowedBeta()
@@ -112,10 +112,10 @@ class VersionTest extends PHPUnit_Framework_TestCase
         $version->setComplete('5.6.3b');
 
         $this->assertEquals('5.6.3b', $version->getComplete());
-        $this->assertEquals(5, $version->getMajor());
-        $this->assertEquals(6, $version->getMinor());
-        $this->assertEquals(3, $version->getPatch());
-        $this->assertNull($version->getAlias());
+        $this->assertEquals(5, $version->major);
+        $this->assertEquals(6, $version->minor);
+        $this->assertEquals(3, $version->patch);
+        $this->assertNull($version->alias);
     }
 
     public function testCompleteWithNotAllowedAlpha()
@@ -125,10 +125,10 @@ class VersionTest extends PHPUnit_Framework_TestCase
         $version->setComplete('5.6.3alpha');
 
         $this->assertEquals('5.6.3alpha', $version->getComplete());
-        $this->assertEquals(5, $version->getMajor());
-        $this->assertEquals(6, $version->getMinor());
-        $this->assertEquals(3, $version->getPatch());
-        $this->assertNull($version->getAlias());
+        $this->assertEquals(5, $version->major);
+        $this->assertEquals(6, $version->minor);
+        $this->assertEquals(3, $version->patch);
+        $this->assertNull($version->alias);
     }
 
     public function testCompleteWithUnderscore()
@@ -138,10 +138,10 @@ class VersionTest extends PHPUnit_Framework_TestCase
         $version->setComplete('6_5_4');
 
         $this->assertEquals('6_5_4', $version->getComplete());
-        $this->assertEquals(6, $version->getMajor());
-        $this->assertEquals(5, $version->getMinor());
-        $this->assertEquals(4, $version->getPatch());
-        $this->assertNull($version->getAlias());
+        $this->assertEquals(6, $version->major);
+        $this->assertEquals(5, $version->minor);
+        $this->assertEquals(4, $version->patch);
+        $this->assertNull($version->alias);
     }
 
     public function testToArray()

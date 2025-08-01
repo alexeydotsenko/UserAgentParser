@@ -98,7 +98,7 @@ class WhatIsMyBrowserComTest extends AbstractHttpProviderTestCase
         /*
          * Test the raw result
          */
-        $rawResult = $result->getProviderResultRaw();
+        $rawResult = $result->providerResultRaw;
 
         $this->assertInstanceOf('stdClass', $rawResult);
         $this->assertCount(35, (array) $rawResult);
@@ -224,6 +224,6 @@ class WhatIsMyBrowserComTest extends AbstractHttpProviderTestCase
         $userAgent = 'Mozilla/5.0 (Linux; U; Android 3.0.1; en-us; HTC T9299+ For AT&T Build/GRJ22) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1';
         $result    = $provider->parse($userAgent);
 
-        $this->assertEquals($userAgent, $result->getProviderResultRaw()->user_agent);
+        $this->assertEquals($userAgent, $result->providerResultRaw->user_agent);
     }
 }

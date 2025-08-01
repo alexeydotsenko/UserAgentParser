@@ -308,8 +308,8 @@ class AbstractBrowscapTest extends AbstractProviderTestCase implements RequiredP
 
         $result = $provider->parse('A real user agent...');
 
-        $this->assertEquals('Browscap', $result->getProviderName());
-        $this->assertRegExp('/\d{1,}$/', $result->getProviderVersion());
+        $this->assertEquals('Browscap', $result->providerName);
+        $this->assertRegExp('/\d{1,}$/', $result->providerVersion);
     }
 
     /**

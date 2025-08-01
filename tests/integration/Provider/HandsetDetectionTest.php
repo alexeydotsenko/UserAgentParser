@@ -130,7 +130,7 @@ class HandsetDetectionTest extends AbstractProviderTestCase
         /*
          * Test the raw result
          */
-        $rawResult = $result->getProviderResultRaw();
+        $rawResult = $result->providerResultRaw;
 
         $this->assertInternalType('array', $rawResult);
         $this->assertCount(48, $rawResult);

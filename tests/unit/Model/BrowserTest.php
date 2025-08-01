@@ -19,22 +19,22 @@ class BrowserTest extends PHPUnit_Framework_TestCase
     {
         $browser = new Browser();
 
-        $this->assertNull($browser->getName());
+        $this->assertNull($browser->name);
 
         $name = 'Firefox';
-        $browser->setName($name);
-        $this->assertEquals($name, $browser->getName());
+        $browser->name = $name;
+        $this->assertEquals($name, $browser->name);
     }
 
     public function testVersion()
     {
         $browser = new Browser();
 
-        $this->assertInstanceOf('UserAgentParser\Model\Version', $browser->getVersion());
+        $this->assertInstanceOf('UserAgentParser\Model\Version', $browser->version);
 
         $version = new Version();
-        $browser->setVersion($version);
-        $this->assertSame($version, $browser->getVersion());
+        $browser->version = $version;
+        $this->assertSame($version, $browser->version);
     }
 
     public function testToArray()
@@ -43,14 +43,14 @@ class BrowserTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals([
             'name'    => null,
-            'version' => $browser->getVersion()
+            'version' => $browser->version
                 ->toArray(),
         ], $browser->toArray());
 
-        $browser->setName('Chrome');
+        $browser->name = 'Chrome';
         $this->assertEquals([
             'name'    => 'Chrome',
-            'version' => $browser->getVersion()
+            'version' => $browser->version
                 ->toArray(),
         ], $browser->toArray());
     }

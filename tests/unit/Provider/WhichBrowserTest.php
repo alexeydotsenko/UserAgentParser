@@ -161,8 +161,8 @@ class WhichBrowserTest extends AbstractProviderTestCase implements RequiredProvi
 
         $result = $provider->parse('A real user agent...');
 
-        $this->assertEquals('WhichBrowser', $result->getProviderName());
-        $this->assertRegExp('/\d{1,}\.\d{1,}/', $result->getProviderVersion());
+        $this->assertEquals('WhichBrowser', $result->providerName);
+        $this->assertRegExp('/\d{1,}\.\d{1,}/', $result->providerVersion);
     }
 
     /**

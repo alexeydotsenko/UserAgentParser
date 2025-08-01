@@ -165,7 +165,7 @@ class UAParserTest extends AbstractProviderTestCase
         /*
          * Test the raw result
          */
-        $rawResult = $result->getProviderResultRaw();
+        $rawResult = $result->providerResultRaw;
 
         $this->assertInstanceOf('UAParser\Result\Client', $rawResult);
         $this->assertObjectHasAttribute('ua', $rawResult);

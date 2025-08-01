@@ -259,8 +259,8 @@ class SinergiBrowserDetectorTest extends AbstractProviderTestCase implements Req
 
         $result = $provider->parse('A real user agent...');
 
-        $this->assertEquals('SinergiBrowserDetector', $result->getProviderName());
-        $this->assertRegExp('/\d{1,}\.\d{1,}/', $result->getProviderVersion());
+        $this->assertEquals('SinergiBrowserDetector', $result->providerName);
+        $this->assertRegExp('/\d{1,}\.\d{1,}/', $result->providerVersion);
     }
 
     /**

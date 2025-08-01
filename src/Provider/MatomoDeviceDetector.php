@@ -93,7 +93,7 @@ class MatomoDeviceDetector extends AbstractProvider
      *
      * @throws PackageNotLoadedException
      */
-    public function __construct(DeviceDetector $parser = null)
+    public function __construct(DeviceDetector|null $parser = null)
     {
         if ($parser === null) {
             $this->checkIfInstalled();
@@ -131,20 +131,20 @@ class MatomoDeviceDetector extends AbstractProvider
 
         // Hydrate the model
         $result = new Model\UserAgent($this->getName(), $this->getVersion());
-        $result->setProviderResultRaw($this->getResultRaw($dd));
+        $result->providerResultRaw = $this->getResultRaw($dd);
 
         // Bot detection
         if ($dd->isBot() === true) {
-            $this->hydrateBot($result->getBot(), $dd->getBot());
+            $this->hydrateBot($result->bot, $dd->getBot());
 
             return $result;
         }
 
         // hydrate the result
-        $this->hydrateBrowser($result->getBrowser(), $dd->getClient());
-        $this->hydrateRenderingEngine($result->getRenderingEngine(), $dd->getClient());
-        $this->hydrateOperatingSystem($result->getOperatingSystem(), $dd->getOs());
-        $this->hydrateDevice($result->getDevice(), $dd);
+        $this->hydrateBrowser($result->browser, $dd->getClient());
+        $this->hydrateRenderingEngine($result->renderingEngine, $dd->getClient());
+        $this->hydrateOperatingSystem($result->operatingSystem, $dd->getOs());
+        $this->hydrateDevice($result->device, $dd);
 
         return $result;
     }
@@ -234,13 +234,13 @@ class MatomoDeviceDetector extends AbstractProvider
      */
     private function hydrateBot(Model\Bot $bot, $botRaw)
     {
-        $bot->setIsBot(true);
+        $bot->isBot = true;
 
         if (isset($botRaw['name'])) {
-            $bot->setName($this->getRealResult($botRaw['name'], 'bot', 'name'));
+            $bot->name = $this->getRealResult($botRaw['name'], 'bot', 'name');
         }
         if (isset($botRaw['category'])) {
-            $bot->setType($this->getRealResult($botRaw['category']));
+            $bot->type = $this->getRealResult($botRaw['category']);
         }
     }
 
@@ -250,11 +250,11 @@ class MatomoDeviceDetector extends AbstractProvider
     private function hydrateBrowser(Model\Browser $browser, $clientRaw)
     {
         if (isset($clientRaw['name'])) {
-            $browser->setName($this->getRealResult($clientRaw['name']));
+            $browser->name = $this->getRealResult($clientRaw['name']);
         }
 
         if (isset($clientRaw['version'])) {
-            $browser->getVersion()->setComplete($this->getRealResult($clientRaw['version']));
+            $browser->version->setComplete($this->getRealResult($clientRaw['version']));
         }
     }
 
@@ -264,7 +264,7 @@ class MatomoDeviceDetector extends AbstractProvider
     private function hydrateRenderingEngine(Model\RenderingEngine $engine, $clientRaw)
     {
         if (isset($clientRaw['engine'])) {
-            $engine->setName($this->getRealResult($clientRaw['engine']));
+            $engine->name = $this->getRealResult($clientRaw['engine']);
         }
     }
 
@@ -274,11 +274,11 @@ class MatomoDeviceDetector extends AbstractProvider
     private function hydrateOperatingSystem(Model\OperatingSystem $os, $osRaw)
     {
         if (isset($osRaw['name'])) {
-            $os->setName($this->getRealResult($osRaw['name']));
+            $os->name = $this->getRealResult($osRaw['name']);
         }
 
         if (isset($osRaw['version'])) {
-            $os->getVersion()->setComplete($this->getRealResult($osRaw['version']));
+            $os->version->setComplete($this->getRealResult($osRaw['version']));
         }
     }
 
@@ -287,16 +287,16 @@ class MatomoDeviceDetector extends AbstractProvider
      */
     private function hydrateDevice(Model\Device $device, DeviceDetector $dd)
     {
-        $device->setModel($this->getRealResult($dd->getModel()));
-        $device->setBrand($this->getRealResult($dd->getBrandName()));
-        $device->setType($this->getRealResult($dd->getDeviceName()));
+        $device->model = $this->getRealResult($dd->getModel());
+        $device->brand = $this->getRealResult($dd->getBrandName());
+        $device->type = $this->getRealResult($dd->getDeviceName());
 
         if ($dd->isMobile() === true) {
-            $device->setIsMobile(true);
+            $device->isMobile = true;
         }
 
         if ($dd->isTouchEnabled() === true) {
-            $device->setIsTouch(true);
+            $device->isTouch = true;
         }
     }
 }

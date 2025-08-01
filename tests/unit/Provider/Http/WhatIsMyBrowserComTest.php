@@ -393,8 +393,8 @@ class WhatIsMyBrowserComTest extends AbstractProviderTestCase implements Require
 
         $result = $provider->parse('A real user agent...');
 
-        $this->assertEquals('WhatIsMyBrowserCom', $result->getProviderName());
-        $this->assertNull($result->getProviderVersion());
+        $this->assertEquals('WhatIsMyBrowserCom', $result->providerName);
+        $this->assertNull($result->providerVersion);
     }
 
     /**

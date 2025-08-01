@@ -50,8 +50,9 @@ class ChainTest extends AbstractProviderTestCase
 
         $result = $provider->parse('Googlebot/2.1 (+http://www.google.com/bot.html)');
 
-        $this->assertTrue($result->getBot()
-            ->getIsBot());
+        $this->assertTrue(
+            $result->bot
+        );
     }
 
     /**
@@ -67,8 +68,9 @@ class ChainTest extends AbstractProviderTestCase
         $result = $provider->parse('Googlebot/2.1 (+http://www.google.com/bot.html)');
 
         // Zsxsoft cannot detect bots, so true here is not possible
-        $this->assertTrue($result->getBot()
-            ->getIsBot());
+        $this->assertTrue(
+            $result->bot
+        );
     }
 
     /**
@@ -85,10 +87,10 @@ class ChainTest extends AbstractProviderTestCase
         $result = $provider->parse('Googlebot/2.1 (+http://www.google.com/bot.html)');
 
         // Zsxsoft cannot detect bots!
-        $this->assertTrue($result->getBot()
-            ->getIsBot());
+        $this->assertTrue(
+            $result->bot
+        );
         // WhichBrowser cannot detect the bot type
-        $this->assertEquals('Search bot', $result->getBot()
-            ->getType());
+        $this->assertEquals('Search bot', $result->bot);
     }
 }

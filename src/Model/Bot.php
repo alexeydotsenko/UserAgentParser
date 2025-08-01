@@ -10,78 +10,18 @@ namespace UserAgentParser\Model;
  */
 class Bot
 {
-    /**
-     * @var bool
-     */
-    private $isBot;
+    public bool|null $isBot = null;
 
-    /**
-     * @var string
-     */
-    private $name;
+    public string|null $name = null;
 
-    /**
-     * @var string
-     */
-    private $type;
+    public string|null $type = null;
 
-    /**
-     * @param bool $mode
-     */
-    public function setIsBot($mode)
-    {
-        $this->isBot = $mode;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsBot()
-    {
-        return $this->isBot;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray()
+    public function toArray(): array
     {
         return [
-            'isBot' => $this->getIsBot(),
-            'name' => $this->getName(),
-            'type' => $this->getType(),
+            'isBot' => $this->isBot,
+            'name' => $this->name,
+            'type' => $this->type,
         ];
     }
 }

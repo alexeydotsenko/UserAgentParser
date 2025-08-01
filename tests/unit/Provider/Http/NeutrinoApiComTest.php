@@ -333,8 +333,8 @@ class NeutrinoApiComTest extends AbstractProviderTestCase implements RequiredPro
 
         $result = $provider->parse('A real user agent...');
 
-        $this->assertEquals('NeutrinoApiCom', $result->getProviderName());
-        $this->assertNull($result->getProviderVersion());
+        $this->assertEquals('NeutrinoApiCom', $result->providerName);
+        $this->assertNull($result->providerVersion);
     }
 
     /**
