@@ -262,7 +262,7 @@ class WhatIsMyBrowserCom extends AbstractHttpProvider
         }
 
         if (isset($resultRaw->browser_version_full)) {
-            $browser->version->setComplete($this->getRealResult($resultRaw->browser_version_full));
+            $browser->version->complete = $this->getRealResult($resultRaw->browser_version_full);
         }
     }
 
@@ -273,7 +273,7 @@ class WhatIsMyBrowserCom extends AbstractHttpProvider
         }
 
         if (isset($resultRaw->layout_engine_version)) {
-            $engine->version->setComplete($this->getRealResult($resultRaw->layout_engine_version));
+            $engine->version->complete = $this->getRealResult($resultRaw->layout_engine_version);
         }
     }
 
@@ -284,7 +284,7 @@ class WhatIsMyBrowserCom extends AbstractHttpProvider
         }
 
         if (isset($resultRaw->operating_system_version_full)) {
-            $os->version->setComplete($this->getRealResult($resultRaw->operating_system_version_full));
+            $os->version->complete = $this->getRealResult($resultRaw->operating_system_version_full);
         }
     }
 

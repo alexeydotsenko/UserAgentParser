@@ -54,7 +54,7 @@ class Version
         }
     }
 
-    protected string|null $complete = null {
+    public string|null $complete = null {
         get {
             return $this->complete;
         }

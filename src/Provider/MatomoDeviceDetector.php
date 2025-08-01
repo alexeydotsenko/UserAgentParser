@@ -254,7 +254,7 @@ class MatomoDeviceDetector extends AbstractProvider
         }
 
         if (isset($clientRaw['version'])) {
-            $browser->version->setComplete($this->getRealResult($clientRaw['version']));
+            $browser->version->complete = $this->getRealResult($clientRaw['version']);
         }
     }
 
@@ -278,7 +278,7 @@ class MatomoDeviceDetector extends AbstractProvider
         }
 
         if (isset($osRaw['version'])) {
-            $os->version->setComplete($this->getRealResult($osRaw['version']));
+            $os->version->complete = $this->getRealResult($osRaw['version']);
         }
     }
 

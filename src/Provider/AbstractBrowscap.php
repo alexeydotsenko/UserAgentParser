@@ -84,7 +84,7 @@ abstract class AbstractBrowscap extends AbstractProvider
             ->getVersion();
     }
 
-    public function getUpdateDate()
+    public function getUpdateDate(): ?\DateTimeInterface
     {
         $releaseDate = $this->getParser()
             ->getCache()
@@ -93,15 +93,12 @@ abstract class AbstractBrowscap extends AbstractProvider
         return DateTime::createFromFormat('D, d M Y H:i:s O', $releaseDate);
     }
 
-    /**
-     * @return Browscap
-     */
-    public function getParser()
+    public function getParser(): Browscap
     {
         return $this->parser;
     }
 
-    public function parse($userAgent, array $headers = [])
+    public function parse($userAgent, array $headers = []): Model\UserAgent
     {
         $parser = $this->getParser();
 
@@ -179,7 +176,7 @@ abstract class AbstractBrowscap extends AbstractProvider
         }
 
         if (isset($resultRaw->version)) {
-            $browser->version->setComplete($this->getRealResult($resultRaw->version));
+            $browser->version->complete = $this->getRealResult($resultRaw->version);
         }
     }
 
@@ -190,7 +187,7 @@ abstract class AbstractBrowscap extends AbstractProvider
         }
 
         if (isset($resultRaw->renderingengine_version)) {
-            $engine->version->setComplete($this->getRealResult($resultRaw->renderingengine_version));
+            $engine->version->complete = $this->getRealResult($resultRaw->renderingengine_version);
         }
     }
 
@@ -201,7 +198,7 @@ abstract class AbstractBrowscap extends AbstractProvider
         }
 
         if (isset($resultRaw->platform_version)) {
-            $os->version->setComplete($this->getRealResult($resultRaw->platform_version));
+            $os->version->complete = $this->getRealResult($resultRaw->platform_version);
         }
     }
 

@@ -181,7 +181,7 @@ class Zsxsoft extends AbstractProvider
         }
 
         if (isset($browserRaw['version'])) {
-            $browser->version->setComplete($this->getRealResult($browserRaw['version']));
+            $browser->version->complete = $this->getRealResult($browserRaw['version']);
         }
     }
 
@@ -192,7 +192,7 @@ class Zsxsoft extends AbstractProvider
         }
 
         if (isset($osRaw['version'])) {
-            $os->version->setComplete($this->getRealResult($osRaw['version']));
+            $os->version->complete = $this->getRealResult($osRaw['version']);
         }
     }
 

@@ -183,7 +183,7 @@ class JenssegersAgent extends AbstractProvider
     {
         if ($this->isRealResult($resultRaw['browserName'], 'browser', 'name') === true) {
             $browser->name = $resultRaw['browserName'];
-            $browser->version->setComplete($this->getRealResult($resultRaw['browserVersion']));
+            $browser->version->complete = $this->getRealResult($resultRaw['browserVersion']);
         }
     }
 
@@ -191,7 +191,7 @@ class JenssegersAgent extends AbstractProvider
     {
         if ($this->isRealResult($resultRaw['osName']) === true) {
             $os->name = $resultRaw['osName'];
-            $os->version->setComplete($this->getRealResult($resultRaw['osVersion']));
+            $os->version->complete = $this->getRealResult($resultRaw['osVersion']);
         }
     }
 

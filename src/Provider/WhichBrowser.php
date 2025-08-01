@@ -138,7 +138,7 @@ class WhichBrowser extends AbstractProvider
     {
         if ($this->isRealResult($browserRaw->getName(), 'browser', 'name') === true) {
             $browser->name = $browserRaw->getName();
-            $browser->version->setComplete($this->getRealResult($browserRaw->getVersion()));
+            $browser->version->complete = $this->getRealResult($browserRaw->getVersion());
 
             return;
         }
@@ -150,7 +150,7 @@ class WhichBrowser extends AbstractProvider
             if ($this->isRealResult($usingRaw->getName()) === true) {
                 $browser->name = $usingRaw->getName();
 
-                $browser->version->setComplete($this->getRealResult($usingRaw->getVersion()));
+                $browser->version->complete = $this->getRealResult($usingRaw->getVersion());
             }
         }
     }
@@ -158,13 +158,13 @@ class WhichBrowser extends AbstractProvider
     private function hydrateRenderingEngine(Model\RenderingEngine $engine, \WhichBrowser\Model\Engine $engineRaw)
     {
         $engine->name = $this->getRealResult($engineRaw->getName());
-        $engine->version->setComplete($this->getRealResult($engineRaw->getVersion()));
+        $engine->version->complete = $this->getRealResult($engineRaw->getVersion());
     }
 
     private function hydrateOperatingSystem(Model\OperatingSystem $os, \WhichBrowser\Model\Os $osRaw)
     {
         $os->name = $this->getRealResult($osRaw->getName());
-        $os->version->setComplete($this->getRealResult($osRaw->getVersion()));
+        $os->version->complete = $this->getRealResult($osRaw->getVersion());
     }
 
     private function hydrateDevice(Model\Device $device, \WhichBrowser\Model\Device $deviceRaw, WhichBrowserParser $parser)

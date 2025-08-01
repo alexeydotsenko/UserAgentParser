@@ -118,6 +118,6 @@ class DonatjUAParser extends AbstractProvider
     private function hydrateBrowser(Model\Browser $browser, array $resultRaw)
     {
         $browser->name = $this->getRealResult($resultRaw['browser']);
-        $browser->version->setComplete($this->getRealResult($resultRaw['version']));
+        $browser->version->complete = $this->getRealResult($resultRaw['version']);
     }
 }

@@ -178,13 +178,13 @@ class Endorphin extends AbstractProvider
     private function hydrateBrowser(Model\Browser $browser, EndorphinDetector\Browser $resultRaw)
     {
         $browser->name = $this->getRealResult($resultRaw->getName());
-        $browser->version->setComplete($this->getRealResult($resultRaw->getVersion()));
+        $browser->version->complete = $this->getRealResult($resultRaw->getVersion());
     }
 
     private function hydrateOperatingSystem(Model\OperatingSystem $os, EndorphinDetector\OS $resultRaw)
     {
         $os->name = $this->getRealResult($resultRaw->getName());
-        $os->version->setComplete($this->getRealResult($resultRaw->getVersion()));
+        $os->version->complete = $this->getRealResult($resultRaw->getVersion());
     }
 
     private function hydrateDevice(Model\Device $device, EndorphinDetector\Device $resultRaw)

@@ -155,7 +155,7 @@ class DeviceAtlasCom extends AbstractHttpProvider
         }
 
         if (isset($resultRaw->browserVersion)) {
-            $browser->version->setComplete($this->getRealResult($resultRaw->browserVersion, 'browser', 'version'));
+            $browser->version->complete = $this->getRealResult($resultRaw->browserVersion, 'browser', 'version');
         }
     }
 
@@ -173,7 +173,7 @@ class DeviceAtlasCom extends AbstractHttpProvider
         }
 
         if (isset($resultRaw->osVersion)) {
-            $os->version->setComplete($this->getRealResult($resultRaw->osVersion));
+            $os->version->complete = $this->getRealResult($resultRaw->osVersion);
         }
     }
 

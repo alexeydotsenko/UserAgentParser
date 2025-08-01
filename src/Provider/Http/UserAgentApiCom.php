@@ -196,7 +196,7 @@ class UserAgentApiCom extends AbstractHttpProvider
         }
 
         if (isset($resultRaw->browser_version)) {
-            $browser->version->setComplete($this->getRealResult($resultRaw->browser_version));
+            $browser->version->complete = $this->getRealResult($resultRaw->browser_version);
         }
     }
 
@@ -207,7 +207,7 @@ class UserAgentApiCom extends AbstractHttpProvider
         }
 
         if (isset($resultRaw->engine_version)) {
-            $engine->version->setComplete($this->getRealResult($resultRaw->engine_version));
+            $engine->version->complete = $this->getRealResult($resultRaw->engine_version);
         }
     }
 

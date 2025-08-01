@@ -198,7 +198,7 @@ class FiftyOneDegreesCom extends AbstractHttpProvider
         }
 
         if (isset($resultRaw->BrowserVersion)) {
-            $browser->version->setComplete($this->getRealResult($resultRaw->BrowserVersion));
+            $browser->version->complete = $this->getRealResult($resultRaw->BrowserVersion);
         }
     }
 
@@ -216,7 +216,7 @@ class FiftyOneDegreesCom extends AbstractHttpProvider
         }
 
         if (isset($resultRaw->PlatformVersion)) {
-            $os->version->setComplete($this->getRealResult($resultRaw->PlatformVersion));
+            $os->version->complete = $this->getRealResult($resultRaw->PlatformVersion);
         }
     }
 

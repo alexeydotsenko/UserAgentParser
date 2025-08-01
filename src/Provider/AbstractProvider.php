@@ -44,7 +44,7 @@ abstract class AbstractProvider
      *
      * @var array
      */
-    protected $allDetectionCapabilities = [
+    protected array $allDetectionCapabilities = [
         'browser' => [
             'name' => false,
             'version' => false,
@@ -132,11 +132,10 @@ abstract class AbstractProvider
 
     /**
      * Get the last change date of the provider.
-     *
-     * @return DateTime null
      */
-    public function getUpdateDate()
+    public function getUpdateDate(): \DateTimeInterface|null
     {
+        return null;
     }
 
     /**

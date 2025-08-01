@@ -187,7 +187,7 @@ class Woothee extends AbstractProvider
         }
 
         if (isset($resultRaw['version'])) {
-            $browser->version->setComplete($this->getRealResult($resultRaw['version']));
+            $browser->version->complete = $this->getRealResult($resultRaw['version']);
         }
     }
 

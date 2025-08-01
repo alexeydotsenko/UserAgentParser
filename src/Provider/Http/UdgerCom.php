@@ -197,7 +197,7 @@ class UdgerCom extends AbstractHttpProvider
         }
 
         if (isset($resultRaw->ua_ver)) {
-            $browser->version->setComplete($this->getRealResult($resultRaw->ua_ver));
+            $browser->version->complete = $this->getRealResult($resultRaw->ua_ver);
         }
     }
 

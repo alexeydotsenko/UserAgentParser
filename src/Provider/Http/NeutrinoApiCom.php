@@ -250,7 +250,7 @@ class NeutrinoApiCom extends AbstractHttpProvider
         }
 
         if (isset($resultRaw->version)) {
-            $browser->version->setComplete($this->getRealResult($resultRaw->version));
+            $browser->version->complete = $this->getRealResult($resultRaw->version);
         }
     }
 
@@ -261,7 +261,7 @@ class NeutrinoApiCom extends AbstractHttpProvider
         }
 
         if (isset($resultRaw->operating_system_version)) {
-            $os->version->setComplete($this->getRealResult($resultRaw->operating_system_version));
+            $os->version->complete = $this->getRealResult($resultRaw->operating_system_version);
         }
     }
 
